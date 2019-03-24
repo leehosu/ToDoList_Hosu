@@ -19,6 +19,18 @@ ul li{
     padding: 5px 10px;
 }
 
-li:hover {
+ul li.checked {
+  background: red;
+  color: white;
   text-decoration: line-through;
+}
+
+.close {
+  right: 0;
+  top: 0;
+  float: right;
+}
+
+.close:hover {
+  color: white;
 }
