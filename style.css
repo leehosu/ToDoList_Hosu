@@ -5,14 +5,26 @@ body {
 
 ul{
     list-style: none;
-    padding:0;
+    padding:10 0;
     margin: 0;
     width: 500px;
 }
 #input{
-    width: 300px;
+    width: 365px;
     height: 30px;
 }
+
+.addBtn {
+    padding:2 10 8 8;
+	color: rgba(30, 22, 54, 0.6);
+	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+}
+
+.addBtn:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+}
+
 ul li{
     border: 1px solid #ccc;
     background: #eee;
@@ -20,7 +32,7 @@ ul li{
 }
 
 ul li.checked {
-  background: red;
+  background: gray;
   color: white;
   text-decoration: line-through;
 }

@@ -1,4 +1,5 @@
-
+var checkbox = document.createElement("input");
+checkbox.type="checkbox";
 
 function newItem() {
   var item = document.getElementById("input").value;
@@ -9,16 +10,17 @@ function newItem() {
       alert("입력값이 없습니다..");
   }
   else{
-      li.appendChild(document.createTextNode("- " + item));
-      ul.appendChild(li);
+     li.appendChild(document.createTextNode("- " + item));
+     ul.appendChild(li);
   }
 
   document.getElementById("input").value = "";
 
    var span = document.createElement("SPAN");
-   var txt = document.createTextNode("\u00D7");
+   var markX = document.createTextNode("\u00D7");
    span.className = "close";
-   span.appendChild(txt);
+   span.appendChild(markX);
+   checkbox.checked = false;
    li.appendChild(span);
 
    for (i = 0; i < close.length; i++) {
@@ -42,6 +44,7 @@ var list = document.querySelector('ul');
 list.addEventListener('click', function(ev) {
   if (ev.target.tagName === 'LI') {
     ev.target.classList.toggle('checked');
+    checkbox.checked = true;
   }
 }, false);
 
@@ -50,7 +53,3 @@ document.body.onkeyup = function(e) { //엔터키 적용
     newItem();
   }
 };
-
-function removeItem(e) { //클릭시 삭제
-    e.target.parentElement.removeChild(e.target);
-}
