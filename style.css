@@ -31,10 +31,15 @@ ul li{
     padding: 5px 10px;
 }
 
-ul li.checked {
-  background: gray;
+.edit{
+    right: 0;
+    top: 0;
+    float: right;
+    margin-right: 5%;
+}
+
+.edit:hover > *[contenteditable="true"]{
   color: white;
-  text-decoration: line-through;
 }
 
 .close {
