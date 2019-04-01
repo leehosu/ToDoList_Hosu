@@ -1,48 +1,60 @@
 var inputText = document.getElementById("inputText");
-var addButton = document.getElementsByTagName("button")[0];
-var list = document.getElementById("listItem");
+let addButton = document.getElementsByTagName("button")[0];
+let list = document.getElementById("listItem");
 
-var createNewTaskElement = function(taskString) {
-    var listItem = document.createElement("li");
+var createInput = function() {
+    var listItem = document.createElement("listItem");
+    var li = document.createElement("li");
     var checkBox = document.createElement("input");
-    var label = document.createElement("label");
     var deleteButton = document.createElement("button");
-
 
     checkBox.type = "checkbox";
 
     deleteButton.innerText = "Delete";
-      deleteButton.className = "delete";
+    deleteButton.className = "delete";
 
-    label.innerText = taskString;
+    var newInput = inputText.value;
 
-    listItem.appendChild(checkBox);
-    listItem.appendChild(label);
-    listItem.appendChild(deleteButton);
+    if (!newInput.trim()) {
+        alert("hi");
+        return false;
+    }
+
+    li.appendChild(checkBox);
+    li.appendChild(document.createTextNode(newInput));
+    li.appendChild(deleteButton);
+    listItem.appendChild(li);
 
     document.getElementById("inputText").value = "";
-
-    return listItem
+    btnEvents(listItem);
+    return listItem;
 }
 
-
-var addBtn = function(e) {
-    var listItem = createNewTaskElement(inputText.value);
+var addBtn = function(e) { //enter눌렀을때 입력
+    var listItem = createInput(inputText.value);
     list.appendChild(listItem);
-    btnEvents(listItem);
+}
+
+var addEnter = function() {
+    var listItem = createInput(inputText.value);
+    list.appendChild(listItem);
 }
 
 var deleteBtn = function() {
     var listItem = this.parentNode;
     var ul = listItem.parentNode;
     ul.removeChild(listItem);
-
 }
 
-var btnEvents = function(ListItem) {
-    var deleteButton = ListItem.querySelector("button.delete");
-
+var btnEvents = function(listItem) { //btn 이벤트 처리하는 함수
+    var deleteButton = listItem.querySelector("button.delete");
     deleteButton.onclick = deleteBtn;
 }
 
-addButton.onclick = addBtn;
+inputText.addEventListener("keydown", function(e) { //enter를 눌렀을때
+    if (e.keyCode === 13) {
+        addButton.onclick = addBtn(e);
+    }
+});
+
+addButton.onclick = addBtn; //add 버튼을 눌렀을때!

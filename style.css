@@ -9,26 +9,62 @@ ul{
     padding-left: 0px;
 
 }
-#input{
+#inputText{
     width: 365px;
     height: 30px;
-}
-
-#addBtn {
-    padding:2 10 8 8;
-	color: rgba(30, 22, 54, 0.6);
-	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
-}
-
-#addBtn:hover {
-	color: rgba(255, 255, 255, 0.85);
-	box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+    float: left;
+    margin-left: 5%;
 }
 
 ul li{
     border: 1px solid #ccc;
     background: #eee;
     padding: 5px 10px;
+}
+h3{
+    font-family: "Helvetica";
+}
+
+#AddBtn{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:37px;
+  font-size:1.6em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+#AddBtn:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+#AddBtn:before,#AddBtn:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+#AddBtn:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+#AddBtn:hover:before,#AddBtn:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+hr. {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
 }
 
 button.delete{
