@@ -5,22 +5,22 @@ body {
 
 ul{
     list-style: none;
-    padding:10 0;
-    margin: 0;
     width: 500px;
+    padding-left: 0px;
+
 }
 #input{
     width: 365px;
     height: 30px;
 }
 
-.addBtn {
+#addBtn {
     padding:2 10 8 8;
 	color: rgba(30, 22, 54, 0.6);
 	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
 }
 
-.addBtn:hover {
+#addBtn:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
 }
@@ -31,14 +31,17 @@ ul li{
     padding: 5px 10px;
 }
 
-.edit{
+.editText{
     right: 0;
     top: 0;
     float: right;
     margin-right: 5%;
 }
+.editText:hover{
+    color:white;
+}
 
-.edit:hover > *[contenteditable="true"]{
+.editText:hover > *[contenteditable="true"]{
   color: white;
 }
 

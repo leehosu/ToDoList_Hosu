@@ -1,61 +1,29 @@
-function newItem() {
-  let item = document.getElementById("input").value;
-  let ul = document.getElementById("list");
-  let li = document.createElement("li");
+var inputText = document.getElementById("inputText");
+var addButton = document.getElementsByTagName("button")[0];
+var list = document.getElementById("listItem");
 
-  if(item==='' || item===' '||item ==='  '){
-      alert("입력값이 없습니다..");
-  }
-  else{
-      li.appendChild(document.createTextNode("- " + item));
-      ul.appendChild(li);
-  }
+var createNewTaskElement = function(taskString) {
+    var listItem = document.createElement("li");
+    var checkBox = document.createElement("input"); //checkbox
+    var label = document.createElement("label");
 
-  document.getElementById("input").value = "";
+    checkBox.type = "checkbox";
 
-  var delSpan = document.createElement("delSpan");
-  var markX = document.createTextNode("\u00D7");
-  delSpan.className = "close";
-  delSpan.appendChild(markX);
-  li.appendChild(delSpan);
+    label.innerText = taskString;
 
-  var editSpan = document.createElement("editSpan");
-  var editBtn = document.createTextNode("EDIT");
-  editSpan.className = "edit";
-  editSpan.appendChild(editBtn);
-  li.appendChild(editSpan);
+    listItem.appendChild(checkBox);
+    listItem.appendChild(label);
 
+    document.getElementById("inputText").value = "";
 
-   var close = document.getElementsByClassName("close");
-   for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
-    }
-  }
-  var edit = document.getElementsByClassName("edit");
-
-  for (i = 0; i < edit.length; i++) {
-   edit[i].onclick = function() {
-     var li = this.parentElement;
-     li.contentEditable = 'true';
-   }
- }
+    return listItem;
 }
 
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-    var div = this.parentElement;
-    div.style.display = "none";
-  }
+
+var addTask = function() {
+    var listItem = createNewTaskElement(inputText.value);
+    list.appendChild(listItem);
+    bindTaskEvents(listItem);
 }
 
-document.body.onkeyup = function(e) { //엔터키 적용
-  if (e.keyCode == 13) {
-    newItem();
-  }
-};
-
-function updateBtn(){
-
-}
+addButton.onclick = addTask;
