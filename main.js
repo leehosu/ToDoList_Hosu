@@ -4,7 +4,7 @@ var list = document.getElementById("listItem");
 
 var createNewTaskElement = function(taskString) {
     var listItem = document.createElement("li");
-    var checkBox = document.createElement("input"); //checkbox
+    var checkBox = document.createElement("input");
     var label = document.createElement("label");
 
     checkBox.type = "checkbox";
@@ -16,14 +16,13 @@ var createNewTaskElement = function(taskString) {
 
     document.getElementById("inputText").value = "";
 
-    return listItem;
+    return listItem
 }
 
 
-var addTask = function() {
+var addBtn = function() {
     var listItem = createNewTaskElement(inputText.value);
     list.appendChild(listItem);
-    bindTaskEvents(listItem);
 }
 
-addButton.onclick = addTask;
+addButton.onclick = addBtn;

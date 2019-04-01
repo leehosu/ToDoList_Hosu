@@ -30,27 +30,3 @@ ul li{
     background: #eee;
     padding: 5px 10px;
 }
-
-.editText{
-    right: 0;
-    top: 0;
-    float: right;
-    margin-right: 5%;
-}
-.editText:hover{
-    color:white;
-}
-
-.editText:hover > *[contenteditable="true"]{
-  color: white;
-}
-
-.close {
-  right: 0;
-  top: 0;
-  float: right;
-}
-
-.close:hover {
-  color: white;
-}
