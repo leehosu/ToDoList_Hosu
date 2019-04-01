@@ -30,3 +30,7 @@ ul li{
     background: #eee;
     padding: 5px 10px;
 }
+
+button.delete{
+    float: right;
+}
