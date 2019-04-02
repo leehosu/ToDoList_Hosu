@@ -37,7 +37,6 @@ var addBtn = function() {
 }
 
 var editBtn = function() {
-    console.log("hi");
     var listItem = this.parentNode;
     var ul = listItem.parentNode;
 
