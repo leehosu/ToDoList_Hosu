@@ -8,6 +8,7 @@ var createInput = function() {
     var checkBox = document.createElement("input");
     var deleteButton = document.createElement("button");
     var editButton = document.createElement("button");
+    var newInput = inputText.value;
 
     checkBox.type = "checkbox";
 
@@ -16,8 +17,6 @@ var createInput = function() {
 
     editButton.innerText = "Edit";
     editButton.className = "edit";
-
-    var newInput = inputText.value;
 
     li.appendChild(checkBox);
     li.appendChild(document.createTextNode(newInput));
