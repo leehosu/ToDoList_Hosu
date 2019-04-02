@@ -7,37 +7,41 @@ var createInput = function() {
     var li = document.createElement("li");
     var checkBox = document.createElement("input");
     var deleteButton = document.createElement("button");
+    var editButton = document.createElement("button");
 
     checkBox.type = "checkbox";
 
     deleteButton.innerText = "Delete";
     deleteButton.className = "delete";
 
-    var newInput = inputText.value;
+    editButton.innerText = "Edit";
+    editButton.className = "edit";
 
-    if (!newInput.trim()) {
-        alert("hi");
-        return false;
-    }
+    var newInput = inputText.value;
 
     li.appendChild(checkBox);
     li.appendChild(document.createTextNode(newInput));
     li.appendChild(deleteButton);
+    li.appendChild(editButton);
     listItem.appendChild(li);
 
     document.getElementById("inputText").value = "";
+
     btnEvents(listItem);
     return listItem;
 }
 
-var addBtn = function(e) { //enter눌렀을때 입력
+var addBtn = function() {
+    if (!inputText.value.trim()) return;
     var listItem = createInput(inputText.value);
     list.appendChild(listItem);
 }
 
-var addEnter = function() {
-    var listItem = createInput(inputText.value);
-    list.appendChild(listItem);
+var editBtn = function() {
+    var listItem = this.parentNode;
+    var ul = listItem.parentNode;
+
+    listItem.contentEditable = 'true';
 }
 
 var deleteBtn = function() {
@@ -46,15 +50,12 @@ var deleteBtn = function() {
     ul.removeChild(listItem);
 }
 
-var btnEvents = function(listItem) { //btn 이벤트 처리하는 함수
+var btnEvents = function(listItem) {
     var deleteButton = listItem.querySelector("button.delete");
     deleteButton.onclick = deleteBtn;
+
+    var editButton = listItem.querySelector("button.edit");
+    editButton.onclick = editBtn;
 }
 
-inputText.addEventListener("keydown", function(e) { //enter를 눌렀을때
-    if (e.keyCode === 13) {
-        addButton.onclick = addBtn(e);
-    }
-});
-
-addButton.onclick = addBtn; //add 버튼을 눌렀을때!
+addButton.onclick = addBtn;

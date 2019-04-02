@@ -70,3 +70,6 @@ hr. {
 button.delete{
     float: right;
 }
+button.edit{
+    float: right;
+}
