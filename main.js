@@ -34,6 +34,7 @@ var createInput = function() {
 var addBtn = function() {
     if (!inputText.value.trim()) return;
     var listItem = createInput(inputText.value);
+
     list.appendChild(listItem);
 }
 
