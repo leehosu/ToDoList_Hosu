@@ -70,3 +70,11 @@ hr. {
 button.delete{
     float: right;
 }
+button.edit{
+    float: right;
+}
+
+button.edit:hover > *[contenteditable="true"]{
+  color: white;
+  text-decoration: line-through;
+}
