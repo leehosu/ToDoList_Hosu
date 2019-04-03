@@ -20,8 +20,8 @@ var createInput = function() {
 
     li.appendChild(checkBox);
     li.appendChild(document.createTextNode(newInput));
-    li.appendChild(deleteButton);
-    li.appendChild(editButton);
+    listItem.appendChild(deleteButton);
+    listItem.appendChild(editButton);
     listItem.appendChild(li);
 
     document.getElementById("inputText").value = "";
