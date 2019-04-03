@@ -1,6 +1,6 @@
 var inputText = document.getElementById("inputText");
-let addButton = document.getElementsByTagName("button")[0];
-let list = document.getElementById("listItem");
+var addButton = document.getElementsByTagName("button")[0];
+var list = document.getElementById("listItem");
 
 var createInput = function() {
     var listItem = document.createElement("listItem");
