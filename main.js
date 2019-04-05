@@ -58,4 +58,11 @@ var btnEvents = function(listItem) {
     editButton.onclick = editBtn;
 }
 
+inputText.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   document.getElementById("AddBtn").click();
+  }
+});
+
 addButton.onclick = addBtn;
