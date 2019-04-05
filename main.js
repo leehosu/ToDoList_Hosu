@@ -6,17 +6,17 @@ var createInput = function() {
     var listItem = document.createElement("listItem");
     var li = document.createElement("li");
     var checkBox = document.createElement("input");
-    var deleteButton = document.createElement("button");
     var editButton = document.createElement("button");
+    var deleteButton = document.createElement("button");
     var newInput = inputText.value;
 
     checkBox.type = "checkbox";
+    editButton.innerText = "Edit";
+    editButton.className = "edit";
 
     deleteButton.innerText = "Delete";
     deleteButton.className = "delete";
 
-    editButton.innerText = "Edit";
-    editButton.className = "edit";
 
     li.appendChild(checkBox);
     li.appendChild(document.createTextNode(newInput));
@@ -38,15 +38,16 @@ var addBtn = function() {
 
 var editBtn = function() {
     var listItem = this.parentNode;
-    var ul = listItem.parentNode;
+    var li = listItem.parentNode;
 
     listItem.contentEditable = 'true';
 }
 
 var deleteBtn = function() {
     var listItem = this.parentNode;
-    var ul = listItem.parentNode;
-    ul.removeChild(listItem);
+    var li = listItem.parentNode;
+
+    li.removeChild(listItem);
 }
 
 var btnEvents = function(listItem) {
@@ -58,10 +59,10 @@ var btnEvents = function(listItem) {
 }
 
 inputText.addEventListener("keyup", function(event) {
-  if (event.keyCode === 13) {
-   event.preventDefault();
-   document.getElementById("AddBtn").click();
-  }
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("AddBtn").click();
+    }
 });
 
 addButton.onclick = addBtn;

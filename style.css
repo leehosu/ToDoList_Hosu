@@ -1,5 +1,3 @@
-@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
-
 body {
   max-width: 500px;
   margin: 100px auto;
@@ -21,14 +19,18 @@ ul li{
     border: 1px solid #ccc;
     background: #eee;
     padding: 5px 10px;
+    font-family: "돋움";
 }
 h3{
     font-family: "Helvetica";
 }
 
-li{
+/* li > *[contenteditable="true"]{
     font-family: "돋움";
-}
+    border: solid 1px #ddd;
+   padding: 10px;
+   background: #fff;
+} */
 #AddBtn{
   background:#1AAB8A;
   color:#fff;
