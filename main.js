@@ -1,14 +1,15 @@
-var inputText = document.getElementById("inputText");
+var Text = document.getElementById("Text");
 var addButton = document.getElementsByTagName("button")[0];
 var list = document.getElementById("listItem");
 
 var createInput = function() {
     var listItem = document.createElement("listItem");
     var li = document.createElement("li");
+    var liText = document.createElement("inputText");
     var checkBox = document.createElement("input");
     var editButton = document.createElement("button");
     var deleteButton = document.createElement("button");
-    var newInput = inputText.value;
+    var newInput = Text.value;
 
     checkBox.type = "checkbox";
     editButton.innerText = "Edit";
@@ -17,32 +18,31 @@ var createInput = function() {
     deleteButton.innerText = "Delete";
     deleteButton.className = "delete";
 
+    liText.appendChild(document.createTextNode(" " + newInput));
 
     li.appendChild(checkBox);
-    li.appendChild(document.createTextNode(" " + newInput));
-    listItem.appendChild(deleteButton);
-    listItem.appendChild(editButton);
+    li.appendChild(deleteButton);
+    li.appendChild(editButton);
+    li.appendChild(liText);
     listItem.appendChild(li);
 
-    document.getElementById("inputText").value = "";
+    document.getElementById("Text").value = "";
 
     btnEvents(listItem);
     return listItem;
 }
 
 var addBtn = function() {
-    if (!inputText.value.trim()) return;
-    var listItem = createInput(inputText.value);
+    if (!Text.value.trim()) return;
+    var listItem = createInput(Text.value);
 
     list.appendChild(listItem);
 }
 
 var editBtn = function() {
-    var listItem = this.parentNode;
-    var li = listItem.parentNode;
+    var inputText = this.parentNode;
 
-    listItem.contentEditable = 'true';
-
+    inputText.contentEditable = 'true';
 }
 
 var deleteBtn = function() {
@@ -60,7 +60,7 @@ var btnEvents = function(listItem) {
     editButton.onclick = editBtn;
 }
 
-inputText.addEventListener("keyup", function(event) {
+Text.addEventListener("keyup", function(event) {
     if (event.keyCode === 13) {
         event.preventDefault();
         document.getElementById("AddBtn").click();
