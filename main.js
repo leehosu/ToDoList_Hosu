@@ -19,7 +19,7 @@ var createInput = function() {
 
 
     li.appendChild(checkBox);
-    li.appendChild(document.createTextNode(newInput));
+    li.appendChild(document.createTextNode(" " + newInput));
     listItem.appendChild(deleteButton);
     listItem.appendChild(editButton);
     listItem.appendChild(li);
