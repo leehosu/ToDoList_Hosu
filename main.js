@@ -42,6 +42,7 @@ var editBtn = function() {
     var li = listItem.parentNode;
 
     listItem.contentEditable = 'true';
+
 }
 
 var deleteBtn = function() {
