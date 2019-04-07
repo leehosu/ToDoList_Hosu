@@ -25,12 +25,6 @@ h3{
     font-family: "Helvetica";
 }
 
-/* li > *[contenteditable="true"]{
-    font-family: "돋움";
-    border: solid 1px #ddd;
-   padding: 10px;
-   background: #fff;
-} */
 #AddBtn{
   background:#1AAB8A;
   color:#fff;
