@@ -40,9 +40,12 @@ var addBtn = function() {
 }
 
 var editBtn = function() {
+    var li = this.parentNode;
+    var listItem = this.parentNode;
     var inputText = this.parentNode;
 
     inputText.contentEditable = 'true';
+
 }
 
 var deleteBtn = function() {
