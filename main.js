@@ -1,4 +1,4 @@
-var Text = document.getElementById("Text");
+var inputText = document.getElementById("inputText");
 var addButton = document.getElementsByTagName("button")[0];
 var list = document.getElementById("listItem");
 
@@ -9,7 +9,7 @@ var createInput = function() {
     var checkBox = document.createElement("input");
     var editButton = document.createElement("button");
     var deleteButton = document.createElement("button");
-    var newInput = Text.value;
+    var newInput = inputText.value;
 
     checkBox.type = "checkbox";
     editButton.innerText = "Edit";
@@ -26,15 +26,15 @@ var createInput = function() {
     li.appendChild(liText);
     listItem.appendChild(li);
 
-    document.getElementById("Text").value = "";
+    document.getElementById("inputText").value = "";
 
     btnEvents(listItem);
     return listItem;
 }
 
 var addBtn = function() {
-    if (!Text.value.trim()) return;
-    var listItem = createInput(Text.value);
+    if (!inputText.value.trim()) return;
+    var listItem = createInput(inputText.value);
 
     list.appendChild(listItem);
 }
@@ -42,9 +42,6 @@ var addBtn = function() {
 var editBtn = function() {
     var li = this.parentNode;
     var listItem = this.parentNode;
-    var inputText = this.parentNode;
-
-    inputText.contentEditable = 'true';
 
 }
 
@@ -63,7 +60,7 @@ var btnEvents = function(listItem) {
     editButton.onclick = editBtn;
 }
 
-Text.addEventListener("keyup", function(event) {
+inputText.addEventListener("keyup", function(event) {
     if (event.keyCode === 13) {
         event.preventDefault();
         document.getElementById("AddBtn").click();

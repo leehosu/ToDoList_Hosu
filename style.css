@@ -8,7 +8,7 @@ ul{
     width: 500px;
     padding-left: 0px;
 }
-#Text{
+#inputText{
     width: 365px;
     height: 30px;
     float: left;
@@ -72,4 +72,16 @@ button.delete{
 }
 button.edit{
     float: right;
+}
+
+ul li inputText[type=text] {
+  display:none;
+}
+
+ul li.editMode inputText[type=text] {
+  display:block;
+}
+
+ul li.editMode label {
+  display:none;
 }
