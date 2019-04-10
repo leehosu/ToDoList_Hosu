@@ -5,7 +5,7 @@ var list = document.getElementById("listItem");
 var createInput = function() {
     var listItem = document.createElement("listItem");
     var li = document.createElement("li");
-    var liText = document.createElement("inputText");
+    var span = document.createElement("span");
     var checkBox = document.createElement("input");
     var editButton = document.createElement("button");
     var deleteButton = document.createElement("button");
@@ -18,12 +18,12 @@ var createInput = function() {
     deleteButton.innerText = "Delete";
     deleteButton.className = "delete";
 
-    liText.appendChild(document.createTextNode(" " + newInput));
+    span.appendChild(document.createTextNode(" " + newInput));
 
     li.appendChild(checkBox);
     li.appendChild(deleteButton);
     li.appendChild(editButton);
-    li.appendChild(liText);
+    li.appendChild(span);
     listItem.appendChild(li);
 
     document.getElementById("inputText").value = "";
@@ -40,8 +40,22 @@ var addBtn = function() {
 }
 
 var editBtn = function() {
-    var li = this.parentNode;
     var listItem = this.parentNode;
+    var spanText = listItem.querySelector("span");
+    var editButton = listItem.querySelector("button.edit");
+
+    spanText.contentEditable = 'true';
+
+    editButton.onclick = editTextBtn;
+}
+
+var editTextBtn = function() {
+    var listItem = this.parentNode;
+    var spanText = listItem.querySelector("span");
+    var editButton = listItem.querySelector("button.edit");
+
+    spanText.contentEditable = 'false';
+    editButton.onclick = editBtn;
 
 }
 
