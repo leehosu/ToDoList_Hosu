@@ -12,12 +12,12 @@ var createInput = function() {
     var newInput = inputText.value;
 
     checkBox.type = "checkbox";
+
     editButton.innerText = "Edit";
     editButton.className = "edit";
 
     deleteButton.innerText = "Delete";
     deleteButton.className = "delete";
-
     span.appendChild(document.createTextNode(" " + newInput));
 
     li.appendChild(checkBox);
@@ -29,6 +29,9 @@ var createInput = function() {
     document.getElementById("inputText").value = "";
 
     btnEvents(listItem);
+
+    localStorage["listItem"] = listItem.innerHTML;
+
     return listItem;
 }
 
@@ -37,6 +40,8 @@ var addBtn = function() {
     var listItem = createInput(inputText.value);
 
     list.appendChild(listItem);
+
+    localStorage["listItem"] = listItem.innerHTML;
 }
 
 var editBtn = function() {
@@ -46,7 +51,6 @@ var editBtn = function() {
 
     spanText.contentEditable = 'true';
 
-    console.log(spanText);
     spanText.style.color = 'gray';
     editButton.onclick = editTextBtn;
 }
@@ -58,8 +62,6 @@ var editTextBtn = function() {
 
     spanText.contentEditable = 'false';
     spanText.style.color = 'black';
-  
-    editButton.onclick = editBtn;
 
 }
 
@@ -76,6 +78,9 @@ var btnEvents = function(listItem) {
 
     var editButton = listItem.querySelector("button.edit");
     editButton.onclick = editBtn;
+
+    localStorage["listItem"] = listItem.innerHTML;
+
 }
 
 inputText.addEventListener("keyup", function(event) {
@@ -84,5 +89,9 @@ inputText.addEventListener("keyup", function(event) {
         document.getElementById("AddBtn").click();
     }
 });
+
+if (localStorage["listItem"]) { // checking, if there is something in localstorage
+  listItem.innerHTML = localStorage["listItem"];
+}
 
 addButton.onclick = addBtn;
