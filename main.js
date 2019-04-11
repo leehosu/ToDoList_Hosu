@@ -62,6 +62,7 @@ var editTextBtn = function() {
 
     spanText.contentEditable = 'false';
     spanText.style.color = 'black';
+    editButton.onclick = editBtn;
 
 }
 
