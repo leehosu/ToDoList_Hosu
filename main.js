@@ -46,6 +46,8 @@ var editBtn = function() {
 
     spanText.contentEditable = 'true';
 
+    console.log(spanText);
+    spanText.style.color = 'gray';
     editButton.onclick = editTextBtn;
 }
 
@@ -55,6 +57,8 @@ var editTextBtn = function() {
     var editButton = listItem.querySelector("button.edit");
 
     spanText.contentEditable = 'false';
+    spanText.style.color = 'black';
+  
     editButton.onclick = editBtn;
 
 }
