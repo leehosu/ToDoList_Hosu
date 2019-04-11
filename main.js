@@ -12,6 +12,7 @@ var createInput = function() {
     var newInput = inputText.value;
 
     checkBox.type = "checkbox";
+
     editButton.innerText = "Edit";
     editButton.className = "edit";
 
@@ -46,7 +47,6 @@ var editBtn = function() {
 
     spanText.contentEditable = 'true';
 
-    console.log(spanText);
     spanText.style.color = 'gray';
     editButton.onclick = editTextBtn;
 }
@@ -58,7 +58,7 @@ var editTextBtn = function() {
 
     spanText.contentEditable = 'false';
     spanText.style.color = 'black';
-  
+
     editButton.onclick = editBtn;
 
 }
