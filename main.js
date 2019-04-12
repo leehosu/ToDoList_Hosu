@@ -2,6 +2,8 @@ var inputText = document.getElementById("inputText");
 var addButton = document.getElementsByTagName("button")[0];
 var list = document.getElementById("listItem");
 
+loadList();
+
 var createInput = function() {
     var listItem = document.createElement("listItem");
     var li = document.createElement("li");
@@ -18,6 +20,7 @@ var createInput = function() {
 
     deleteButton.innerText = "Delete";
     deleteButton.className = "delete";
+
     span.appendChild(document.createTextNode(" " + newInput));
 
     li.appendChild(checkBox);
@@ -29,9 +32,6 @@ var createInput = function() {
     document.getElementById("inputText").value = "";
 
     btnEvents(listItem);
-
-    localStorage["listItem"] = listItem.innerHTML;
-
     return listItem;
 }
 
@@ -40,8 +40,7 @@ var addBtn = function() {
     var listItem = createInput(inputText.value);
 
     list.appendChild(listItem);
-
-    localStorage["listItem"] = listItem.innerHTML;
+    saveList();
 }
 
 var editBtn = function() {
@@ -53,6 +52,7 @@ var editBtn = function() {
 
     spanText.style.color = 'gray';
     editButton.onclick = editTextBtn;
+    saveList();
 }
 
 var editTextBtn = function() {
@@ -62,7 +62,7 @@ var editTextBtn = function() {
 
     spanText.contentEditable = 'false';
     spanText.style.color = 'black';
-
+    saveList();
 }
 
 var deleteBtn = function() {
@@ -70,6 +70,8 @@ var deleteBtn = function() {
     var li = listItem.parentNode;
 
     li.removeChild(listItem);
+    localStorage.removeItem(li);
+    saveList();
 }
 
 var btnEvents = function(listItem) {
@@ -78,8 +80,7 @@ var btnEvents = function(listItem) {
 
     var editButton = listItem.querySelector("button.edit");
     editButton.onclick = editBtn;
-
-    localStorage["listItem"] = listItem.innerHTML;
+    // saveList();
 
 }
 
@@ -90,8 +91,19 @@ inputText.addEventListener("keyup", function(event) {
     }
 });
 
-if (localStorage["listItem"]) { // checking, if there is something in localstorage
-  listItem.innerHTML = localStorage["listItem"];
+function saveList() {
+  // Get the HTML contents of the list...
+  var html = list.innerHTML;
+
+  // Write the HTML to local storage...
+  localStorage.setItem("listHTML", html);
 }
 
+function loadList() {
+  // Read the saved HTML from local storage...
+  var html = localStorage.getItem("listHTML");
+
+  // Set it to the list HTML...
+  list.innerHTML = html;
+}
 addButton.onclick = addBtn;
