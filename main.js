@@ -63,6 +63,8 @@ var editTextBtn = function() {
     spanText.contentEditable = 'false';
     spanText.style.color = 'black';
     saveList();
+  
+    editButton.onclick = editBtn;
 }
 
 var deleteBtn = function() {
