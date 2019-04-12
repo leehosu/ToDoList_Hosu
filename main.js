@@ -2,6 +2,8 @@ var inputText = document.getElementById("inputText");
 var addButton = document.getElementsByTagName("button")[0];
 var list = document.getElementById("listItem");
 
+loadList();
+
 var createInput = function() {
     var listItem = document.createElement("listItem");
     var li = document.createElement("li");
@@ -38,6 +40,7 @@ var addBtn = function() {
     var listItem = createInput(inputText.value);
 
     list.appendChild(listItem);
+    saveList();
 }
 
 var editBtn = function() {
@@ -49,6 +52,7 @@ var editBtn = function() {
 
     spanText.style.color = 'gray';
     editButton.onclick = editTextBtn;
+    saveList();
 }
 
 var editTextBtn = function() {
@@ -58,9 +62,9 @@ var editTextBtn = function() {
 
     spanText.contentEditable = 'false';
     spanText.style.color = 'black';
-
+    saveList();
+  
     editButton.onclick = editBtn;
-
 }
 
 var deleteBtn = function() {
@@ -68,6 +72,8 @@ var deleteBtn = function() {
     var li = listItem.parentNode;
 
     li.removeChild(listItem);
+    localStorage.removeItem(li);
+    saveList();
 }
 
 var btnEvents = function(listItem) {
@@ -76,6 +82,8 @@ var btnEvents = function(listItem) {
 
     var editButton = listItem.querySelector("button.edit");
     editButton.onclick = editBtn;
+    // saveList();
+
 }
 
 inputText.addEventListener("keyup", function(event) {
@@ -85,4 +93,19 @@ inputText.addEventListener("keyup", function(event) {
     }
 });
 
+function saveList() {
+  // Get the HTML contents of the list...
+  var html = list.innerHTML;
+
+  // Write the HTML to local storage...
+  localStorage.setItem("listHTML", html);
+}
+
+function loadList() {
+  // Read the saved HTML from local storage...
+  var html = localStorage.getItem("listHTML");
+
+  // Set it to the list HTML...
+  list.innerHTML = html;
+}
 addButton.onclick = addBtn;
