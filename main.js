@@ -92,18 +92,13 @@ inputText.addEventListener("keyup", function(event) {
 });
 
 function saveList() {
-  // Get the HTML contents of the list...
   var html = list.innerHTML;
 
-  // Write the HTML to local storage...
   localStorage.setItem("listHTML", html);
 }
 
 function loadList() {
-  // Read the saved HTML from local storage...
   var html = localStorage.getItem("listHTML");
-
-  // Set it to the list HTML...
   list.innerHTML = html;
 }
 addButton.onclick = addBtn;
