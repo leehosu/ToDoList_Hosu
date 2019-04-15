@@ -1,26 +1,49 @@
 let inputText = document.querySelector("input.inputText");
-let addButton = document.getElementsByTagName("button")[0];
-let list = document.querySelector(".app-list");
+let addButton = document.querySelector(".AddBtn");
+let list = document.querySelector(".app-body");
 const indexList = [];
 
 // loadList();
 let createInput = function() {
+    var li = document.createElement("li");
     var label = document.createElement("label");
     var span = document.createElement("span");
     var checkBox = document.createElement("input");
+    var button = list.querySelector(".list-btn");
+    var editButton = button.querySelector(".edit");
+    var deleteButton = button.querySelector(".delete");
+
     var newInput = inputText.value;
 
     checkBox.type = "checkbox";
+    checkBox.className="checkbox";
+
+    label.className="app-list";
+
+    // deleteButton.innerText = "Delete";
+    // deleteButton.className = "delete";
+
+    // editButton.innerText = "Edit";
+    // editButton.className = "delete";
 
     span.appendChild(document.createTextNode(" " + newInput));
+
     label.appendChild(checkBox);
     label.appendChild(span);
 
-     inputText.value = "";
+    li.appendChild(label);
 
+    list.appendChild(li);
+    // listItem.appendChild(editButton);
+    // listItem.appendChild(deleteButton);
+    inputText.value = "";
+
+
+    console.log(list);
+    console.log(editButton);
     // saveList();
     // btnEvents(label);
-    return label;
+    return list;
 }
 
 let addBtn = function() {
@@ -28,9 +51,7 @@ let addBtn = function() {
     if (!inputText.value.trim()) return;
     var listItem = createInput(inputText.value);
 
-    list.appendChild(listItem);
-
-
+    // list.appendChild(listItem);
     // saveList();
 }
 //
