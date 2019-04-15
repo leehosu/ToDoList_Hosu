@@ -3,19 +3,30 @@
 
 <head>
     <title>Todo list</title>
+    <link rel="stylesheet" href="reset.css" type="text/css">
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
 <body>
-        <h3> Hosu's ToDoList </h3>
-    <div class="container">
+    <h3> Hosu's ToDoList </h3>
+    <div class="app-head">
         <p>
-            <input id="inputText" type="text">
-            <button id="AddBtn">Add</button>
+            <input class="inputText" type="text">
+            <button class="AddBtn">Add</button>
         </p>
-        <hr class="style">
-        <ul id="listItem">
-        </ul>
+    </div>
+    <hr class="style">
+    <div class="app-body">
+        <li class ="list">
+            <label class="app-list">
+                <input type="checkbox">
+                <span>운동하기!</span>
+            </label>
+            <div class="list-btn">
+                <button class="delete">Delete</button>
+                <button class="edit">Edit</button>
+            </div>
+        </li>
     </div>
     <script type="text/javascript" src="main.js"></script>
 </body>

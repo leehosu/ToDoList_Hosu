@@ -1,88 +1,98 @@
-var inputText = document.getElementById("inputText");
-var addButton = document.getElementsByTagName("button")[0];
-var list = document.getElementById("listItem");
+let inputText = document.querySelector("input.inputText");
+let addButton = document.getElementsByTagName("button")[0];
+let list = document.querySelector(".app-list");
+const indexList = [];
 
-var createInput = function() {
-    var listItem = document.createElement("listItem");
-    var li = document.createElement("li");
+// loadList();
+let createInput = function() {
+    var label = document.createElement("label");
     var span = document.createElement("span");
     var checkBox = document.createElement("input");
-    var editButton = document.createElement("button");
-    var deleteButton = document.createElement("button");
     var newInput = inputText.value;
 
     checkBox.type = "checkbox";
-    editButton.innerText = "Edit";
-    editButton.className = "edit";
-
-    deleteButton.innerText = "Delete";
-    deleteButton.className = "delete";
 
     span.appendChild(document.createTextNode(" " + newInput));
+    label.appendChild(checkBox);
+    label.appendChild(span);
 
-    li.appendChild(checkBox);
-    li.appendChild(deleteButton);
-    li.appendChild(editButton);
-    li.appendChild(span);
-    listItem.appendChild(li);
+     inputText.value = "";
 
-    document.getElementById("inputText").value = "";
-
-    btnEvents(listItem);
-    return listItem;
+    // saveList();
+    // btnEvents(label);
+    return label;
 }
 
-var addBtn = function() {
+let addBtn = function() {
+    var spanText = inputText.value;
     if (!inputText.value.trim()) return;
     var listItem = createInput(inputText.value);
 
     list.appendChild(listItem);
+
+
+    // saveList();
 }
-
-var editBtn = function() {
-    var listItem = this.parentNode;
-    var spanText = listItem.querySelector("span");
-    var editButton = listItem.querySelector("button.edit");
-
-    spanText.contentEditable = 'true';
-
-    console.log(spanText);
-    spanText.style.color = 'gray';
-    editButton.onclick = editTextBtn;
-}
-
-var editTextBtn = function() {
-    var listItem = this.parentNode;
-    var spanText = listItem.querySelector("span");
-    var editButton = listItem.querySelector("button.edit");
-
-    spanText.contentEditable = 'false';
-    spanText.style.color = 'black';
-  
-    editButton.onclick = editBtn;
-
-}
-
-var deleteBtn = function() {
-    var listItem = this.parentNode;
-    var li = listItem.parentNode;
-
-    li.removeChild(listItem);
-}
-
-var btnEvents = function(listItem) {
-    var deleteButton = listItem.querySelector("button.delete");
-    deleteButton.onclick = deleteBtn;
-
-    var editButton = listItem.querySelector("button.edit");
-    editButton.onclick = editBtn;
-}
+//
+// let editBtn = function() {
+//     var listItem = this.parentNode;
+//     var spanText = listItem.querySelector("span");
+//     var editButton = listItem.querySelector("button.edit");
+//
+//     spanText.contentEditable = 'true';
+//
+//     spanText.style.color = 'gray';
+//     editButton.onclick = editTextBtn;
+//     // saveList();
+// }
+//
+// let editTextBtn = function() {
+//     var listItem = this.parentNode;
+//     var spanText = listItem.querySelector("span");
+//     var editButton = listItem.querySelector("button.edit");
+//
+//     spanText.contentEditable = 'false';
+//     spanText.style.color = 'black';
+//
+//     editButton.onclick = editBtn;
+//     // saveList();
+// }
+//
+// let deleteBtn = function() {
+//     var listItem = this.parentNode;
+//     var li = listItem.parentNode;
+//
+//     li.removeChild(listItem);
+// }
+//
+// let btnEvents = function(li) {
+//     var editButton = li.querySelector("button.edit");
+//     editButton.onclick = editBtn;
+//
+//     var deleteButton = li.querySelector("button.delete");
+//     deleteButton.onclick = deleteBtn;
+//
+// }
 
 inputText.addEventListener("keyup", function(event) {
     if (event.keyCode === 13) {
         event.preventDefault();
-        document.getElementById("AddBtn").click();
+        document.querySelector("button.AddBtn").click();
     }
 });
 
 addButton.onclick = addBtn;
+
+// function saveList() {
+//     var storageText = list.innerText;
+//
+//      // Write the HTML to local storage...
+//      localStorage.setItem("listText", storageText);
+// }
+//
+// function loadList() {
+//     var storageText = localStorage.getItem("listText");
+//
+//     // Set it to the list HTML...
+//     list.innerText = storageText;
+// }
