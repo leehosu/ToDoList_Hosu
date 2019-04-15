@@ -3,8 +3,8 @@ let addButton = document.querySelector(".AddBtn");
 var list = document.querySelector(".list");
 const indexList = [];
 
-// loadList();
 const createInput =()=> {
+    const li = document.createElement('li');
     let templete = `
             <label class="app-list">
                 <input type="checkbox" class="checkbox">
@@ -16,57 +16,34 @@ const createInput =()=> {
             </div>
     `;
 
-    list.innerHTML = templete;
+    li.innerHTML = templete;
 
-    console.log(list);
-
+    list.appendChild(li);
     inputText.value = "";
+
+
+    indexList.push(li);
+    console.log(indexList);
+    // btnEvents(list);
     return list;
 }
 
 let addBtn = function() {
     if (!inputText.value.trim()) return;
-    var listItem = createInput(inputText.value);
+    createInput();
 }
-//
-// let editBtn = function() {
-//     var listItem = this.parentNode;
-//     var spanText = listItem.querySelector("span");
-//     var editButton = listItem.querySelector("button.edit");
-//
-//     spanText.contentEditable = 'true';
-//
-//     spanText.style.color = 'gray';
-//     editButton.onclick = editTextBtn;
-//     // saveList();
-// }
-//
-// let editTextBtn = function() {
-//     var listItem = this.parentNode;
-//     var spanText = listItem.querySelector("span");
-//     var editButton = listItem.querySelector("button.edit");
-//
-//     spanText.contentEditable = 'false';
-//     spanText.style.color = 'black';
-//
-//     editButton.onclick = editBtn;
-//     // saveList();
-// }
-//
-// let deleteBtn = function() {
+
+// let deleteBtn = function(list) {
 //     var listItem = this.parentNode;
 //     var li = listItem.parentNode;
 //
-//     li.removeChild(listItem);
+//     list.removeChild(li);
 // }
 //
-// let btnEvents = function(li) {
-//     var editButton = li.querySelector("button.edit");
-//     editButton.onclick = editBtn;
-//
-//     var deleteButton = li.querySelector("button.delete");
+// let btnEvents = function(list) {
+//     var deleteButton = list.querySelector("button.delete");
+//     console.log(deleteButton);
 //     deleteButton.onclick = deleteBtn;
-//
 // }
 
 inputText.addEventListener("keyup", function(event) {
@@ -77,17 +54,3 @@ inputText.addEventListener("keyup", function(event) {
 });
 
 addButton.onclick = addBtn;
-
-// function saveList() {
-//     var storageText = list.innerText;
-//
-//      // Write the HTML to local storage...
-//      localStorage.setItem("listText", storageText);
-// }
-//
-// function loadList() {
-//     var storageText = localStorage.getItem("listText");
-//
-//     // Set it to the list HTML...
-//     list.innerText = storageText;
-// }
