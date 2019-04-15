@@ -1,37 +1,32 @@
 let inputText = document.querySelector("input.inputText");
-let addButton = document.getElementsByTagName("button")[0];
-let list = document.querySelector(".app-list");
+let addButton = document.querySelector(".AddBtn");
+var list = document.querySelector(".list");
 const indexList = [];
 
 // loadList();
-let createInput = function() {
-    var label = document.createElement("label");
-    var span = document.createElement("span");
-    var checkBox = document.createElement("input");
-    var newInput = inputText.value;
+const createInput =()=> {
+    let templete = `
+            <label class="app-list">
+                <input type="checkbox" class="checkbox">
+                <span class="spanText">${inputText.value}</span>
+            </label>
+            <div class="list-btn">
+                <button class="delete">Delete</button>
+                <button class="edit">Edit</button>
+            </div>
+    `;
 
-    checkBox.type = "checkbox";
+    list.innerHTML = templete;
 
-    span.appendChild(document.createTextNode(" " + newInput));
-    label.appendChild(checkBox);
-    label.appendChild(span);
+    console.log(list);
 
-     inputText.value = "";
-
-    // saveList();
-    // btnEvents(label);
-    return label;
+    inputText.value = "";
+    return list;
 }
 
 let addBtn = function() {
-    var spanText = inputText.value;
     if (!inputText.value.trim()) return;
     var listItem = createInput(inputText.value);
-
-    list.appendChild(listItem);
-
-
-    // saveList();
 }
 //
 // let editBtn = function() {

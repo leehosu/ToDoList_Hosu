@@ -58,20 +58,22 @@ input.inputText {
     transition: 800ms ease all;
 }
 
-hr. {
+hr.style {
     height: 12px;
     border: 0;
-    box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
+    margin-top: 10px;
+    box-shadow: inset 0px 12px 12px -12px rgba(0, 0, 0, 0.5);
 }
 
 li{
     list-style: none;
     display: flex;
-    width: 500px;
+    border-bottom:1px dotted #CCC;
+    padding: 10px 10px 10px 10px;
 }
-
 label{
   display: block;
+  margin-bottom: 5px;
 }
 
 label input[type=checkbox]:checked + span{
