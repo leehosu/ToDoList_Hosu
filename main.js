@@ -7,15 +7,19 @@
     addButton.addEventListener('click', addBtnEvent)
 
     function addBtnEvent() {
-        const {value} = inputText
+        const {
+            value
+        } = inputText
+
         if (!value.trim()) return
+
         let templete = `
             <li class="item-list">
                 <label class="app-list">
                     <input type="checkbox" class="checkbox">
                     <span class="spanText">${value}</span>
-                    </label>
-                    <div class="list-btn">
+                </label>
+                <div class="list-btn">
                     <button class="delete">Delete</button>
                     <button class="edit">Edit</button>
                 </div>
@@ -26,10 +30,16 @@
 
         list.innerHTML += templete
         indexList.push(value)
+
         var deleteButton = list.querySelectorAll(".delete")
         deleteButton.forEach((element, index) => {
             deleteButton[index].addEventListener('click', deleteBtnEvent)
         })
+        var editButton = list.querySelectorAll(".edit")
+        editButton.forEach((element, index) => {
+            editButton[index].addEventListener('click', editBtnEvent)
+        })
+
         console.log(indexList)
         return indexList
     }
@@ -40,14 +50,18 @@
 
         itemList.forEach((element, index) => {
             if (element === parent) {
-                index
                 parent.remove()
-                indexList.splice(parent,1)
+                indexList.splice(parent, 1)
             }
         })
     }
 
+    function editBtnEvent() {
+        const itemList = document.querySelectorAll(".item-list")
+        const parent = this.parentNode.parentNode
 
+        console.log(parent)
+    }
 
     inputText.addEventListener("keyup", function(event) {
         if (event.keyCode === ENTER) {
