@@ -1,12 +1,18 @@
+﻿
 # ToDoList_Hosu
-
 =====================================================
 
-1. checkbox (완료) -> input type = checkbox
-2. delete (완료) -> removeChild()
-3. edit (완료) -> contentEditable = ture
-4. enter 기능(완료) -> enter key를 누르면 function 호출!
-5. edit 방식 (완료) -> 버튼을 누르면 수정 가능한 상태로!
-6. 데이터 저장 (진행중)
+## 🛠 Doing develop
+
+- function 구조 변경 (진행중)
+- delete : 삭제버튼 클릭시 list index에서 삭제(진행중)
+- edit : edit 버튼 클릭시 list도 편집
+- checkbox edit
+- local storage
+
+## 👌 Done develop
+
+- html 재배치 (완료)
+- add : list indexing, 백틱 사용하여 li 추가(완료)
 
 =====================================================
