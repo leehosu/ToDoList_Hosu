@@ -18,7 +18,7 @@ input.inputText {
     margin-left: 5%;
 }
 
-.AddBtn {
+.addBtn {
     background: #1AAB8A;
     color: #fff;
     border: none;
@@ -30,12 +30,12 @@ input.inputText {
     outline: none;
 }
 
-.AddBtn:hover {
+.addBtn:hover {
     background: #fff;
     color: #1AAB8A;
 }
 
-.AddBtn:before, .AddBtn:after {
+.addBtn:before, .addBtn:after {
     content: '';
     position: absolute;
     top: 0;
@@ -46,14 +46,14 @@ input.inputText {
     transition: 400ms ease all;
 }
 
-.AddBtn:after {
+.addBtn:after {
     right: inherit;
     top: inherit;
     left: 0;
     bottom: 0;
 }
 
-.AddBtn:hover:before, .AddBtn:hover:after {
+.addBtn:hover:before, .addBtn:hover:after {
     width: 100%;
     transition: 800ms ease all;
 }
