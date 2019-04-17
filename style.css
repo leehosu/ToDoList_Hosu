@@ -75,14 +75,11 @@ label{
   display: block;
   margin-bottom: 5px;
 }
-
+/*
 label input[type=checkbox]:checked + span{
   text-decoration: line-through;
-}
+} */
 
-label.app-list{
-    flex:1;
-}
 
 div.list-btn{
     flex:2;
