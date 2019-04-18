@@ -4,12 +4,8 @@
     const indexList = [];
     const ENTER = 13
 
-    addButton.addEventListener('click', addBtnEvent)
-
     function addBtnEvent() {
-        const {
-            value
-        } = inputText
+        const {value} = inputText
 
         if (!value.trim()) return
 
@@ -31,11 +27,12 @@
         list.innerHTML += templete
         indexList.push(value)
 
-        var deleteButton = list.querySelectorAll(".delete")
+        let deleteButton = list.querySelectorAll(".delete")
         deleteButton.forEach((element, index) => {
             deleteButton[index].addEventListener('click', deleteBtnEvent)
         })
-        var editButton = list.querySelectorAll(".edit")
+
+        let editButton = list.querySelectorAll(".edit")
         editButton.forEach((element, index) => {
             editButton[index].addEventListener('click', editBtnEvent)
         })
@@ -58,9 +55,16 @@
 
     function editBtnEvent() {
         const itemList = document.querySelectorAll(".item-list")
+        const spanText = list.querySelectorAll(".spanText")
         const parent = this.parentNode.parentNode
 
-        console.log(parent)
+        itemList.forEach((element, index) => {
+            if (element === parent) {
+                spanText[index].contentEditable = 'true'
+                indexList[index] = spanText[index].innerHTML
+            }
+        })
+        console.log(indexList)
     }
 
     inputText.addEventListener("keyup", function(event) {
@@ -69,3 +73,6 @@
             addBtnEvent()
         }
     })
+
+
+    addButton.addEventListener('click', addBtnEvent)
