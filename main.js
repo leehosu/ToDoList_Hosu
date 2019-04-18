@@ -3,12 +3,11 @@
     const list = document.querySelector(".list")
     const indexList = [];
     const checkList = [];
-    const ENTER = 13    //enterkey
+    const ENTER = 13 //enterkey
 
     function addBtnEvent() {
         const {value} = inputText
-
-        if (!value.trim()) return   //inputText insert
+        if (!value.trim()) return //inputText insert
 
         let templete = `
             <li class="item-list">
@@ -41,7 +40,7 @@
 
         let checkBox = list.querySelectorAll(".checkbox")
         checkBox.forEach((element, index) => {
-            checkBox[index].addEventListener('click',checkBoxEvent)
+            checkBox[index].addEventListener('click', checkBoxEvent)
         })
 
 
@@ -61,7 +60,7 @@
         })
     }
 
-    function editBtnEvent() {   //editbutton listner
+    function editBtnEvent() { //editbutton listner
         const itemList = document.querySelectorAll(".item-list")
         const spanText = list.querySelectorAll(".spanText")
         const parent = this.parentNode.parentNode
@@ -70,10 +69,10 @@
         itemList.forEach((element, index) => {
             const isEdit = spanText[index].contentEditable
             if (element === parent) {
-                if(isEdit==='false'){
+                if (isEdit === 'false') {
                     spanText[index].contentEditable = 'true'
                     spanText[index].style.color = 'gray';
-                }else {
+                } else {
                     spanText[index].contentEditable = 'false'
                     spanText[index].style.color = 'black';
                     indexList[index] = spanText[index].innerHTML
@@ -83,7 +82,7 @@
         console.log(indexList)
     }
 
-    function checkBoxEvent(){
+    function checkBoxEvent() {
         const itemList = document.querySelectorAll(".item-list")
         const parent = this.parentNode.parentNode
         let checkBox = list.querySelectorAll(".checkbox")
@@ -91,16 +90,17 @@
         itemList.forEach((element, index) => {
             const isChecked = checkBox[index].checked
             if (element === parent) {
-                if(isChecked === false){
-                    console.log("check out")
-                    }else {
-                        console.log("check in")
+                if (isChecked === false) {
+                    checkList[index] = isChecked
+                } else {
+                    checkList[index] = isChecked
                 }
             }
         })
+        console.log(checkList)
     }
 
-    inputText.addEventListener("keyup", function(event) {   //enter key
+    inputText.addEventListener("keyup", function(event) { //enter key
         if (event.keyCode === ENTER) {
             event.preventDefault()
             addBtnEvent()
@@ -108,4 +108,4 @@
     })
 
 
-    addButton.addEventListener('click', addBtnEvent)    //add button lister
+    addButton.addEventListener('click', addBtnEvent) //add button lister
