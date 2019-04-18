@@ -2,18 +2,18 @@
     const addButton = document.querySelector(".addBtn")
     const list = document.querySelector(".list")
     const indexList = [];
-    const ENTER = 13
+    const ENTER = 13    //enterkey
 
     function addBtnEvent() {
         const {value} = inputText
 
-        if (!value.trim()) return
+        if (!value.trim()) return   //inputText insert
 
         let templete = `
             <li class="item-list">
                 <label class="app-list">
                     <input type="checkbox" class="checkbox">
-                    <span class="spanText">${value}</span>
+                    <span class="spanText" contentEditable = 'false'>${value}</span>
                 </label>
                 <div class="list-btn">
                     <button class="delete">Delete</button>
@@ -27,12 +27,12 @@
         list.innerHTML += templete
         indexList.push(value)
 
-        let deleteButton = list.querySelectorAll(".delete")
+        let deleteButton = list.querySelectorAll(".delete") // delete button Active
         deleteButton.forEach((element, index) => {
             deleteButton[index].addEventListener('click', deleteBtnEvent)
         })
 
-        let editButton = list.querySelectorAll(".edit")
+        let editButton = list.querySelectorAll(".edit") //edit button Active
         editButton.forEach((element, index) => {
             editButton[index].addEventListener('click', editBtnEvent)
         })
@@ -41,7 +41,7 @@
         return indexList
     }
 
-    function deleteBtnEvent() {
+    function deleteBtnEvent() { //delete button listner
         const itemList = document.querySelectorAll(".item-list")
         const parent = this.parentNode.parentNode
 
@@ -53,21 +53,29 @@
         })
     }
 
-    function editBtnEvent() {
+    function editBtnEvent() {   //editbutton listner
         const itemList = document.querySelectorAll(".item-list")
         const spanText = list.querySelectorAll(".spanText")
         const parent = this.parentNode.parentNode
+        const editButton = list.querySelectorAll(".edit")
 
         itemList.forEach((element, index) => {
+            const isEdit = spanText[index].contentEditable
             if (element === parent) {
-                spanText[index].contentEditable = 'true'
-                indexList[index] = spanText[index].innerHTML
+                if(isEdit==='false'){
+                    spanText[index].contentEditable = 'true'
+                    spanText[index].style.color = 'gray';
+                }else {
+                    spanText[index].contentEditable = 'false'
+                    spanText[index].style.color = 'black';
+                    indexList[index] = spanText[index].innerHTML
+                }
             }
         })
         console.log(indexList)
     }
 
-    inputText.addEventListener("keyup", function(event) {
+    inputText.addEventListener("keyup", function(event) {   //enter key
         if (event.keyCode === ENTER) {
             event.preventDefault()
             addBtnEvent()
@@ -75,4 +83,4 @@
     })
 
 
-    addButton.addEventListener('click', addBtnEvent)
+    addButton.addEventListener('click', addBtnEvent)    //add button lister
