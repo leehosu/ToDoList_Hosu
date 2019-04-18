@@ -64,6 +64,7 @@
                 indexList[index] = spanText[index].innerHTML
             }
         })
+        console.log(indexList)
     }
 
     inputText.addEventListener("keyup", function(event) {

@@ -71,15 +71,16 @@ li{
     border-bottom:1px dotted #CCC;
     padding: 10px 10px 10px 10px;
 }
+
 label{
   display: block;
   margin-bottom: 5px;
 }
+
 /*
 label input[type=checkbox]:checked + span{
   text-decoration: line-through;
 } */
-
 
 div.list-btn{
     flex:2;
