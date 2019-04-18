@@ -2,6 +2,7 @@
     const addButton = document.querySelector(".addBtn")
     const list = document.querySelector(".list")
     const indexList = [];
+    const checkList = [];
     const ENTER = 13    //enterkey
 
     function addBtnEvent() {
@@ -13,8 +14,8 @@
             <li class="item-list">
                 <label class="app-list">
                     <input type="checkbox" class="checkbox">
-                    <span class="spanText" contentEditable = 'false'>${value}</span>
                 </label>
+                <span class="spanText" contentEditable = 'false'>${value}</span>
                 <div class="list-btn">
                     <button class="delete">Delete</button>
                     <button class="edit">Edit</button>
@@ -25,6 +26,7 @@
         inputText.value = ""
 
         list.innerHTML += templete
+
         indexList.push(value)
 
         let deleteButton = list.querySelectorAll(".delete") // delete button Active
@@ -36,6 +38,12 @@
         editButton.forEach((element, index) => {
             editButton[index].addEventListener('click', editBtnEvent)
         })
+
+        let checkBox = list.querySelectorAll(".checkbox")
+        checkBox.forEach((element, index) => {
+            checkBox[index].addEventListener('click',checkBoxEvent)
+        })
+
 
         console.log(indexList)
         return indexList
@@ -73,6 +81,23 @@
             }
         })
         console.log(indexList)
+    }
+
+    function checkBoxEvent(){
+        const itemList = document.querySelectorAll(".item-list")
+        const parent = this.parentNode.parentNode
+        let checkBox = list.querySelectorAll(".checkbox")
+
+        itemList.forEach((element, index) => {
+            const isChecked = checkBox[index].checked
+            if (element === parent) {
+                if(isChecked === false){
+                    console.log("check out")
+                    }else {
+                        console.log("check in")
+                }
+            }
+        })
     }
 
     inputText.addEventListener("keyup", function(event) {   //enter key
