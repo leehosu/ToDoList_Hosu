@@ -1,15 +1,34 @@
+(function(){
+    "use strict"
+
     const inputText = document.querySelector("input.inputText")
     const addButton = document.querySelector(".addBtn")
     const list = document.querySelector(".list")
     const indexList = [];
     const checkList = [];
-    const ENTER = 13 //enterkey
+    const ENTER = 13;    //enterkey
+  
 
-    function addBtnEvent() {
-        const {value} = inputText
-        if (!value.trim()) return //inputText insert
+    function showList() {
+        loadList();
+        
+        addButton.addEventListener('click', () => {
+            mainBtnEvent();//add button lister
+        }); 
+       
+        function mainBtnEvent() {        
+            templeteCrtl();
+            inputText.value = "";
+            
+            console.log(indexList);
+            BtnHandler();           
+        }
 
-        let templete = `
+        function templeteCrtl(){
+            const {value} = inputText;
+            if (!value.trim()) return; //inputText insert
+            
+            let templete = `
             <li class="item-list">
                 <label class="app-list">
                     <input type="checkbox" class="checkbox">
@@ -20,92 +39,104 @@
                     <button class="edit">Edit</button>
                 </div>
             </li>
-        `
-
-        inputText.value = ""
-
-        list.innerHTML += templete
-
-        indexList.push(value)
-
-        let deleteButton = list.querySelectorAll(".delete") // delete button Active
-        deleteButton.forEach((element, index) => {
-            deleteButton[index].addEventListener('click', deleteBtnEvent)
-        })
-
-        let editButton = list.querySelectorAll(".edit") //edit button Active
-        editButton.forEach((element, index) => {
-            editButton[index].addEventListener('click', editBtnEvent)
-        })
-
-        let checkBox = list.querySelectorAll(".checkbox")
-        checkBox.forEach((element, index) => {
-            checkBox[index].addEventListener('click', checkBoxEvent)
-        })
-
-
-        console.log(indexList)
-        return indexList
-    }
-
-    function deleteBtnEvent() { //delete button listner
-        const itemList = document.querySelectorAll(".item-list")
-        const parent = this.parentNode.parentNode
-
-        itemList.forEach((element, index) => {
-            if (element === parent) {
-                parent.remove()
-                indexList.splice(parent, 1)
-            }
-        })
-    }
-
-    function editBtnEvent() { //editbutton listner
-        const itemList = document.querySelectorAll(".item-list")
-        const spanText = list.querySelectorAll(".spanText")
-        const parent = this.parentNode.parentNode
-        const editButton = list.querySelectorAll(".edit")
-
-        itemList.forEach((element, index) => {
-            const isEdit = spanText[index].contentEditable
-            if (element === parent) {
-                if (isEdit === 'false') {
-                    spanText[index].contentEditable = 'true'
-                    spanText[index].style.color = 'gray';
-                } else {
-                    spanText[index].contentEditable = 'false'
-                    spanText[index].style.color = 'black';
-                    indexList[index] = spanText[index].innerHTML
-                }
-            }
-        })
-        console.log(indexList)
-    }
-
-    function checkBoxEvent() {
-        const itemList = document.querySelectorAll(".item-list")
-        const parent = this.parentNode.parentNode
-        let checkBox = list.querySelectorAll(".checkbox")
-
-        itemList.forEach((element, index) => {
-            const isChecked = checkBox[index].checked
-            if (element === parent) {
-                if (isChecked === false) {
-                    checkList[index] = isChecked
-                } else {
-                    checkList[index] = isChecked
-                }
-            }
-        })
-        console.log(checkList)
-    }
-
-    inputText.addEventListener("keyup", function(event) { //enter key
-        if (event.keyCode === ENTER) {
-            event.preventDefault()
-            addBtnEvent()
+            `;
+            
+            list.innerHTML += templete;
+            indexList.push(value);
+            saveList();
         }
-    })
 
+        function BtnHandler(){
+            let deleteButton = list.querySelectorAll(".delete"); // delete button Active
+            deleteButton.forEach((element, index) => {
+                deleteButton[index].addEventListener('click', deleteBtnEvent);
+            });
+    
+            let editButton = list.querySelectorAll(".edit"); //edit button Active
+            editButton.forEach((element, index) => {
+                editButton[index].addEventListener('click', editBtnEvent);
+            });
+    
+            let checkBox = list.querySelectorAll(".checkbox");
+            checkBox.forEach((element, index) => {
+                checkBox[index].addEventListener('click', checkBoxEvent);
+            });
+        }
 
-    addButton.addEventListener('click', addBtnEvent) //add button lister
+        function deleteBtnEvent() { //delete button listner
+            const itemList = document.querySelectorAll(".item-list");
+            const parent = this.parentNode.parentNode;
+    
+            itemList.forEach((element, index) => {
+                if (element === parent) {
+                    parent.remove();
+                    indexList.splice(parent, 1);
+                    saveList();
+                }
+            })
+        }
+    
+        function editBtnEvent() { //editbutton listner
+            const itemList = document.querySelectorAll(".item-list");
+            const spanText = list.querySelectorAll(".spanText");
+            const parent = this.parentNode.parentNode;
+            const editButton = list.querySelectorAll(".edit");
+    
+            itemList.forEach((element, index) => {
+                const isEdit = spanText[index].contentEditable;
+                if (element === parent) {
+                    if (isEdit === 'false') {
+                        spanText[index].contentEditable = 'true';
+                        spanText[index].style.color = 'gray';
+                    } else {
+                        spanText[index].contentEditable = 'false';
+                        spanText[index].style.color = 'black';
+                        indexList[index] = spanText[index].innerHTML;
+                        saveList();
+                    }
+                }
+            })
+            console.log(indexList);
+    
+        }
+    
+        function checkBoxEvent() {      //checked
+            const itemList = document.querySelectorAll(".item-list");
+            const parent = this.parentNode.parentNode;
+            let checkBox = list.querySelectorAll(".checkbox");
+    
+            itemList.forEach((element, index) => {
+                const isChecked = checkBox[index].checked;
+                if (element === parent) {
+                    if (isChecked === false) {
+                        checkList[index] = isChecked;
+                    } else {
+                        checkList[index] = isChecked;
+                    }
+                }
+            });
+            console.log(checkList);
+        }
+
+        function saveList() {
+            var todoList = list.innerHTML;
+            localStorage.setItem("todoList", todoList);
+          }
+          
+        function loadList() {
+            var todoList = localStorage.getItem("todoList");
+            list.innerHTML = todoList;
+            BtnHandler();
+         }
+
+        inputText.addEventListener("keyup", function(event) { //enter key
+            if (event.keyCode === ENTER) {
+                event.preventDefault();
+                mainBtnEvent();
+            }
+        })
+
+    }
+
+    showList();
+})();
