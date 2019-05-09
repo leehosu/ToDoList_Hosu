@@ -9,10 +9,10 @@
     const ENTER = 13;    //enterkey
 
     const basicStatus = {
-        text : inputText
+        value : inputText,
+        isChecked : "uncheck"
     };
 
-    // console.log(inputText);
     console.log(inputText);
     
     function showList() {
@@ -23,23 +23,24 @@
             mainBtnEvent();//add button lister
         }); 
        
-        console.log(basicStatus)
+
         function mainBtnEvent() {        
             templeteCrtl();
             inputText.value = "";
             
             console.log(indexList);
-            BtnHandler();           
+            BtnHandler();      
         }
 
         function templeteCrtl(){
-            const {value} = basicStatus.text;
-            if (!value.trim()) return; //inputText insert    
+            const {value} = basicStatus.value;
+            const {isChecked} = basicStatus.isChecked;
+            if (!value.trim()) return; //inputText insert
             
             let templete = `
             <li class="item-list">
                 <label class="app-list">
-                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox" ${isChecked}>
                 </label>
                 <span class="spanText" contentEditable = 'false'>${value}</span>
                 <div class="list-btn">
@@ -51,7 +52,8 @@
             
             list.innerHTML += templete;
             indexList.push(value);
-            saveList(value);
+            saveList(); 
+            console.log(basicStatus)
         }
 
         function BtnHandler(){
@@ -118,16 +120,17 @@
                 const isChecked = checkBox[index].checked;
                 if (element === parent) {
                     if (isChecked === false) {
-                        checkList[index] = isChecked;
-                    } else {
-                        checkList[index] = isChecked;
-                    }
+                        basicStatus.isChecked='uncheck';
+                    }else{
+                        basicStatus.isChecked='checked';
+                    } 
                 }
             });
-            console.log(checkList);
+            saveList();
+            console.log(basicStatus.isChecked);
         }
 
-        function saveList(value) {
+        function saveList() {
             var todoList = list.innerHTML;
             localStorage.setItem("todoList", todoList);
           }
