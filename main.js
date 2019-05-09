@@ -2,39 +2,33 @@
     "use strict"
 
     const inputText = document.querySelector('.inputText');
+    const indexList = [];
     const addButton = document.querySelector(".addBtn");
     const list = document.querySelector(".list");
-    const indexList = [];
-    const checkList = [];
     const ENTER = 13;    //enterkey
-
+    
     const basicStatus = {
-        value : inputText,
-        isChecked : "uncheck"
+        value : "",
+        isChecked : false
     };
 
-    console.log(inputText);
-    
     function showList() {
 
         loadList();
-        
         addButton.addEventListener('click', () => {
             mainBtnEvent();//add button lister
         }); 
-       
-
+   
         function mainBtnEvent() {        
             templeteCrtl();
             inputText.value = "";
-            
-            console.log(indexList);
-            BtnHandler();      
+            BtnHandler();
         }
 
         function templeteCrtl(){
-            const {value} = basicStatus.value;
-            const {isChecked} = basicStatus.isChecked;
+            basicStatus.value = inputText.value
+            const {value} = basicStatus;
+            const {isChecked} = basicStatus;
             if (!value.trim()) return; //inputText insert
             
             let templete = `
@@ -51,9 +45,13 @@
             `;
             
             list.innerHTML += templete;
-            indexList.push(value);
+            madeArray(basicStatus)
             saveList(); 
-            console.log(basicStatus)
+        }
+
+        function madeArray(basicStatus){
+            indexList.push(basicStatus);
+            console.log(indexList);
         }
 
         function BtnHandler(){
