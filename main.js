@@ -1,21 +1,29 @@
 (function(){
     "use strict"
 
-    const inputText = document.querySelector("input.inputText")
-    const addButton = document.querySelector(".addBtn")
-    const list = document.querySelector(".list")
+    const inputText = document.querySelector('.inputText');
+    const addButton = document.querySelector(".addBtn");
+    const list = document.querySelector(".list");
     const indexList = [];
     const checkList = [];
     const ENTER = 13;    //enterkey
-  
 
+    const basicStatus = {
+        text : inputText
+    };
+
+    // console.log(inputText);
+    console.log(inputText);
+    
     function showList() {
+
         loadList();
         
         addButton.addEventListener('click', () => {
             mainBtnEvent();//add button lister
         }); 
        
+        console.log(basicStatus)
         function mainBtnEvent() {        
             templeteCrtl();
             inputText.value = "";
@@ -25,8 +33,8 @@
         }
 
         function templeteCrtl(){
-            const {value} = inputText;
-            if (!value.trim()) return; //inputText insert
+            const {value} = basicStatus.text;
+            if (!value.trim()) return; //inputText insert    
             
             let templete = `
             <li class="item-list">
@@ -43,15 +51,16 @@
             
             list.innerHTML += templete;
             indexList.push(value);
-            saveList();
+            saveList(value);
         }
 
         function BtnHandler(){
             let deleteButton = list.querySelectorAll(".delete"); // delete button Active
+            
             deleteButton.forEach((element, index) => {
                 deleteButton[index].addEventListener('click', deleteBtnEvent);
             });
-    
+
             let editButton = list.querySelectorAll(".edit"); //edit button Active
             editButton.forEach((element, index) => {
                 editButton[index].addEventListener('click', editBtnEvent);
@@ -118,7 +127,7 @@
             console.log(checkList);
         }
 
-        function saveList() {
+        function saveList(value) {
             var todoList = list.innerHTML;
             localStorage.setItem("todoList", todoList);
           }
