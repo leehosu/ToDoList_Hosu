@@ -9,7 +9,7 @@
     
     const basicStatus = {
         value : "",
-        isChecked : false
+        isChecked : "checked"
     };
 
     function showList() {
@@ -45,12 +45,15 @@
             `;
             
             list.innerHTML += templete;
-            madeArray(basicStatus)
+            madeArray(basicStatus);
             saveList(); 
         }
 
         function madeArray(basicStatus){
-            indexList.push(basicStatus);
+            indexList.push({
+                value : basicStatus.value,
+                isChecked : basicStatus.isChecked
+            });
             console.log(indexList);
         }
 
