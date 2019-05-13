@@ -2,33 +2,36 @@
     "use strict"
 
     const inputText = document.querySelector('.inputText');
-    const indexList = [];
     const addButton = document.querySelector(".addBtn");
     const list = document.querySelector(".list");
+    const indexList = [];
     const ENTER = 13;    //enterkey
     
     const basicStatus = {
         value : "",
-        isChecked : "checked"
+        isChecked : 'unchecked'
     };
 
     function showList() {
 
         loadList();
-        addButton.addEventListener('click', () => {
-            mainBtnEvent();//add button lister
-        }); 
+        addButton.addEventListener('click', mainBtnEvent);//add button lister
+        
    
         function mainBtnEvent() {        
             templeteCrtl();
             inputText.value = "";
-            BtnHandler();
+            BtnHandler(basicStatus);
+            
+            console.log(indexList);
+            console.log(basicStatus)
         }
 
         function templeteCrtl(){
             basicStatus.value = inputText.value
             const {value} = basicStatus;
             const {isChecked} = basicStatus;
+
             if (!value.trim()) return; //inputText insert
             
             let templete = `
@@ -54,19 +57,20 @@
                 value : basicStatus.value,
                 isChecked : basicStatus.isChecked
             });
-            console.log(indexList);
+            
+            saveList(); 
         }
 
-        function BtnHandler(){
+        function BtnHandler(basicStatus){
             let deleteButton = list.querySelectorAll(".delete"); // delete button Active
             
             deleteButton.forEach((element, index) => {
-                deleteButton[index].addEventListener('click', deleteBtnEvent);
+                deleteButton[index].addEventListener('click',deleteBtnEvent);
             });
 
             let editButton = list.querySelectorAll(".edit"); //edit button Active
             editButton.forEach((element, index) => {
-                editButton[index].addEventListener('click', editBtnEvent);
+                editButton[index].addEventListener('click',editBtnEvent);
             });
     
             let checkBox = list.querySelectorAll(".checkbox");
@@ -76,16 +80,17 @@
         }
 
         function deleteBtnEvent() { //delete button listner
-            const itemList = document.querySelectorAll(".item-list");
+            const itemList = document.querySelectorAll(".item-list"); 
             const parent = this.parentNode.parentNode;
-    
+
             itemList.forEach((element, index) => {
                 if (element === parent) {
                     parent.remove();
-                    indexList.splice(parent, 1);
-                    saveList();
+                    indexList.splice(index, 1);
                 }
             })
+            console.log(indexList);
+            saveList();
         }
     
         function editBtnEvent() { //editbutton listner
@@ -107,40 +112,28 @@
                         saveList();
                     }
                 }
-            })
+            });
             console.log(indexList);
-    
         }
     
-        function checkBoxEvent() {      //checked
-            const itemList = document.querySelectorAll(".item-list");
-            const parent = this.parentNode.parentNode;
+        function checkBoxEvent(){
             let checkBox = list.querySelectorAll(".checkbox");
     
-            itemList.forEach((element, index) => {
-                const isChecked = checkBox[index].checked;
-                if (element === parent) {
-                    if (isChecked === false) {
-                        basicStatus.isChecked='uncheck';
-                    }else{
-                        basicStatus.isChecked='checked';
-                    } 
-                }
+            checkBox.forEach((element,index) => {
+                console.log(checkBox[index]);
             });
-            saveList();
-            console.log(basicStatus.isChecked);
         }
 
         function saveList() {
-            var todoList = list.innerHTML;
+            let todoList = list.innerHTML;
             localStorage.setItem("todoList", todoList);
-          }
+        }
           
         function loadList() {
-            var todoList = localStorage.getItem("todoList");
+            let todoList = localStorage.getItem("todoList");
             list.innerHTML = todoList;
             BtnHandler();
-         }
+        }
 
         inputText.addEventListener("keyup", function(event) { //enter key
             if (event.keyCode === ENTER) {
