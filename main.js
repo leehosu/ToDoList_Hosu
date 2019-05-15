@@ -10,7 +10,7 @@
 
         let newObject = {
             value : "",
-            isChecked : "unchecked"
+            isChecked : false
         }
             
 
@@ -29,7 +29,6 @@
                 mainEvent();
             });
 
-
             function mainEvent(){
                 newObject.value = inputText.value;
                 if (!newObject.value.trim()) return;
@@ -37,8 +36,7 @@
                 if (objectList == null){
                     objectList = [];
                 }
-  
-                addArray(); 
+                addArray();
                 showList(newObject);
                 btnEventHandlr();
 
@@ -64,7 +62,7 @@
                 return `
                     <li class="item-list">
                         <label class="app-list">
-                            <input type="checkbox" class="checkbox" ${newObject.isChecked}>
+                            <input type="checkbox" class="checkbox" ${newObject.isChecked ? "checked" : ""}>
                         </label>
                         <span class="spanText" contentEditable = 'false'>${newObject.value}</span>
                         <div class="list-btn">
@@ -138,16 +136,16 @@
 
                 itemList.forEach((element,index) => {
                     if(element === nowList){
-                        if(checkBox[index].checked == true){
+                        if(checkBox[index].checked){
                             objectList.splice(index,1,{
                                 value : spanText[index].innerHTML,
-                                isChecked : "checked"
+                                isChecked : true
                             })
                         }
                         else{
                             objectList.splice(index,1,{
                                 value : spanText[index].innerHTML,
-                                isChecked : "unchecked"
+                                isChecked : false
                             })
                             
                         }
