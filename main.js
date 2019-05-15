@@ -8,7 +8,7 @@
         let objectList = [];
         const ENTER = 13;    //enterkey
 
-        const newObject = {
+        let newObject = {
             value : "",
             isChecked : "unchecked"
         }
@@ -21,8 +21,14 @@
             if(objectList !== null){
                 objectList.forEach(function(newObject){
                     showList(newObject);
+                    btnEventHandlr();
                 })
             }
+
+            addBtn.addEventListener('click', () => {  //when add button click,,
+                mainEvent();
+            });
+
 
             function mainEvent(){
                 newObject.value = inputText.value;
@@ -31,9 +37,9 @@
                 if (objectList == null){
                     objectList = [];
                 }
-
+  
                 addArray(); 
-                showList(newObject);    
+                showList(newObject);
                 btnEventHandlr();
 
                 console.log(newObject);
@@ -51,6 +57,7 @@
             function showList(newObject){
                 list.innerHTML += templeteEvent(newObject);
                 inputText.value = "";
+                saveStorage();
             }
     
             function templeteEvent(newObject){
@@ -77,6 +84,11 @@
                 let editButton = list.querySelectorAll(".edit");
                 editButton.forEach((element, index) => {
                     editButton[index].addEventListener('click', editBtnEvent);
+                });
+
+                let checkBox = list.querySelectorAll(".checkbox");
+                checkBox.forEach((element, index) => {
+                    checkBox[index].addEventListener('click', checkBoxEvent);
                 });
             }
     
@@ -117,6 +129,33 @@
                 });
                 saveStorage();
             }
+
+            function checkBoxEvent(){
+                const itemList = document.querySelectorAll(".item-list");
+                const nowList = this.parentNode.parentNode;
+                const checkBox = list.querySelectorAll(".checkbox");
+                const spanText = list.querySelectorAll(".spanText");
+
+                itemList.forEach((element,index) => {
+                    if(element === nowList){
+                        if(checkBox[index].checked == true){
+                            objectList.splice(index,1,{
+                                value : spanText[index].innerHTML,
+                                isChecked : "checked"
+                            })
+                        }
+                        else{
+                            objectList.splice(index,1,{
+                                value : spanText[index].innerHTML,
+                                isChecked : "unchecked"
+                            })
+                            
+                        }
+                    }
+                })
+                saveStorage();
+
+            }
     
             function saveStorage(){
                 localStorage.setItem("arrayList",JSON.stringify(objectList));
@@ -132,10 +171,6 @@
                     event.preventDefault();
                     mainEvent();
                 }
-            });
-    
-            addBtn.addEventListener('click', () => {  //when add button click,,
-                mainEvent();
             });
         }
         init();
