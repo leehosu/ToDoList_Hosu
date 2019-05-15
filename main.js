@@ -5,33 +5,40 @@
         const inputText = document.querySelector(".inputText");
         const addBtn = document.querySelector(".addBtn");
         const list = document.querySelector(".list");
-        const objectList = [];
+        let objectList = [];
         const ENTER = 13;    //enterkey
 
         const newObject = {
             value : "",
-            isChecked : false
+            isChecked : "unchecked"
         }
 
         function init(){
-            addBtn.addEventListener('click', mainEvent);
-            loadList();
+            console.log(objectList);
+            loadStorage(); 
+            addArray(); 
+            showList(newObject);
+            btnEventHandlr();
+            console.log(newObject);
+            console.log(objectList);
         }
 
-        function mainEvent(){
+        function addArray(){
             newObject.value = inputText.value;
             const {value} = newObject;
             const {isChecked} = newObject;
             if (!value.trim()) return;
-            
+
             objectList.push({
                 value : newObject.value,
                 isChecked : newObject.isChecked
             });
+            saveStorage();
+        }
 
-            showList(value);
-            btnEventHandlr(newObject);
-            console.log(objectList);
+        function showList(newObject){
+            list.innerHTML += templeteEvent(newObject);
+            inputText.value = "";
         }
 
         function templeteEvent(newObject){
@@ -47,11 +54,6 @@
                 </div>
             </li>
             `;
-        }
-        function showList(value){
-            list.innerHTML += templeteEvent(newObject);
-            inputText.value = "";
-            saveList();
         }
 
         function btnEventHandlr(){
@@ -76,7 +78,7 @@
                     objectList.splice(index,1);
                 }
             });
-            saveList();
+            saveStorage();
         }
 
         function editBtnEvent(){
@@ -101,34 +103,30 @@
                     }
                 }
             });
-            saveList();
+            saveStorage();
         }
 
-        function saveList() {
-            let todoList = list.innerHTML;
-
-            localStorage.setItem("todoList", todoList);
-            localStorage.setItem("listStorage", newObject);
-        }
-          
-        function loadList() {
-            let todoList = localStorage.getItem("todoList");
-            let listStorage = localStorage.getItem("newObject");
-            list.innerHTML = todoList;
-            objectList.push({
-                value : newObject.value,
-                isChecked : newObject.isChecked
-            });
-            btnEventHandlr();
+        function saveStorage(){
+            let todolist = 
+            localStorage.setItem("arrayList",JSON.stringify(objectList));
         }
 
-        inputText.addEventListener("keyup", function(event) { //enter key
+        function loadStorage(){
+            let stoarageArray = localStorage.getItem("arrayList");
+            objectList = JSON.parse(stoarageArray);
+            console.log(objectList);    
+        }
+
+        inputText.addEventListener("keyup", function(event) { //when enter key click,,
             if (event.keyCode === ENTER) {
                 event.preventDefault();
-                mainEvent();
+                init();
             }
-        })
-        init();
+        });
+
+        addBtn.addEventListener('click', () => {  //when add button click,,
+            init();
+        });
     }
     todo();
 })();
