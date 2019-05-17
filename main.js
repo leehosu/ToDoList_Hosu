@@ -1,30 +1,43 @@
 (function(){
     "use strict"
+
     function todo(){
-        
         const $todoInput = document.querySelector(".inputText");
         const $list = document.querySelector(".list");
-
-        let count = 0;
+    
         let todos = [];
+        let idCount = 0;
         const ENTER = 13;
-
+      
         function init() {
-            buttonEventHandlr();
+            buttonEventBinder();
             loadStorage();
+
+            //when array is empty ,,
+            if(todos == null){
+                todos = [];
+            }
+
+            //  when array is empty, idCount reset,,
+            if(todos.length == 0){
+                idCount =0;
+            }
+
             showList();
         }
 
+        // add Event,,
         function addTodos(value) {
             if(!$todoInput.value.trim()) return;
         
             todos.push({
                 value,
                 isChecked: false,
-                id: count ++,
+                id: idCount,
                 isEdit : false
             });
 
+            idCount++;
             $todoInput.value = '';
             showList();
             saveStorage();
@@ -32,6 +45,7 @@
             console.log(todos);
         }
 
+        // template function,,
         function template(todos) {
             return `
                <li class="item-list" data-key="${todos.id}">
@@ -47,12 +61,14 @@
             `;
         }
 
+        // show in the display ,,
         function showList() {
-            $list.innerHTML = todos.map(todos => template(todos)).join('');
-            buttonEventHandlr();
+            $list.innerHTML = todos.map(todo => template(todo)).join('');
+            buttonEventBinder();
         }
 
-        function buttonEventHandlr() {
+        // button evnet binder,,
+        function buttonEventBinder() {
             const $addBtn = document.querySelector(".addBtn");
             const $deleteButton = $list.querySelectorAll(".delete");
             const $editButton = $list.querySelectorAll(".edit");
@@ -81,6 +97,7 @@
             })
         }
 
+        // delete event,,
         function deleteBtnEvent(){
             const $itemList = document.querySelectorAll(".item-list");
             const $nowList = this.parentNode.parentNode;
@@ -95,6 +112,7 @@
             saveStorage();
         }
 
+        // edit event,,
         function editBtnEvent(){
             const $itemList = document.querySelectorAll(".item-list");
             const $spanText = $list.querySelectorAll(".spanText");
@@ -119,6 +137,7 @@
             saveStorage();
         }
 
+        // checkbox event,,
         function checkBoxEvent(){
             const $itemList = document.querySelectorAll(".item-list");
             const $nowList = this.parentNode.parentNode;
@@ -149,13 +168,16 @@
             saveStorage();
         }
 
+        // storage save function,,
         function saveStorage(){
-            localStorage.setItem("arrayList",JSON.stringify(todos));
+            localStorage.setItem("storageList",JSON.stringify(todos));
+            localStorage.setItem("idCount",JSON.stringify(idCount));
         }
 
+        //storage load function,,
         function loadStorage(){
-            let stoarageArray = localStorage.getItem("arrayList");
-            todos = JSON.parse(stoarageArray);
+            todos = JSON.parse(localStorage.getItem("storageList"));
+            idCount = Number(JSON.parse(localStorage.getItem("idCount")));
             console.log(todos);
         }
 
