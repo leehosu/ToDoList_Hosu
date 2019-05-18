@@ -4,8 +4,8 @@
     function todo(){
         const $todoInput = document.querySelector(".inputText");
         const $list = document.querySelector(".list");
-        const $checkBox_all = document.querySelector(".checkboxAll"); 
-        const $delete_all = document.querySelector(".deleteAll"); 
+        const $checkBoxAll = document.querySelector(".checkboxAll"); 
+        const $deleteAll = document.querySelector(".deleteAll"); 
     
         let todos = [];
         let idCount = 0;
@@ -73,18 +73,19 @@
         }
         
         function allEventBinder(){
-            $checkBox_all.addEventListener('click', checkboxAllEvent);
-            $delete_all.addEventListener('click', deleteAllEvent);
+            $checkBoxAll.addEventListener('click', checkboxAllEvent);
+            $deleteAll.addEventListener('click', deleteAllEvent);
         }
 
         // button evnet binder,,
         function buttonEventBinder() {
-            const $addBtn = document.querySelector(".addBtn");
+            const $addButton = document.querySelector(".addBtn");
+            const $itemList = $list.querySelectorAll(".item-list")
             const $deleteButton = $list.querySelectorAll(".delete");
             const $editButton = $list.querySelectorAll(".edit");
             const $checkBox = $list.querySelectorAll(".checkbox");
 
-            $addBtn.addEventListener('click', () => {
+            $addButton.addEventListener('click', () => {
                 addTodos($todoInput.value);
             });
 
@@ -93,118 +94,69 @@
                     addTodos($todoInput.value);
                 }
             });        
-            
-            $deleteButton.forEach((element, index) => {
-                $deleteButton[index].addEventListener('click', deleteBtnEvent)
-            });
 
-            $editButton.forEach((element, index) => {
-                $editButton[index].addEventListener('click', editBtnEvent);
-            });
-
-            $checkBox.forEach((element,index) => {
-                $checkBox[index].addEventListener('click', checkBoxEvent);
-            })
+            $itemList.forEach((element,index) => {
+                $deleteButton[index].addEventListener('click', () => {
+                    deleteButtonEvent(todos[index].id);
+                });
+                $editButton[index].addEventListener('click', () => {
+                    editButtonEvent(todos[index].id);
+                });
+                $checkBox[index].addEventListener('click', () => {
+                    checkBoxEvent(todos[index].id);
+                });
+            });   
         }
 
         function checkboxAllEvent(){
-            const $checkBox = $list.querySelectorAll(".checkbox");
-
-            $checkBox.forEach((element,index) =>{
-                if($checkBox_all.checked){
-                    todos.splice(index,1,{
-                        value : todos[index].value,
-                        isChecked : true,
-                        id : todos[index].id,
-                        isEdit : todos[index].isEdit
-                    });
-                }else {
-                    todos.splice(index,1,{
-                        value : todos[index].value,
-                        isChecked : false,
-                        id : todos[index].id,
-                        isEdit : todos[index].isEdit
-                    });
-                }
-            });
+            if($checkBoxAll.checked){
+                todos = todos.filter(element => {
+                    return element.isChecked = true;
+                })
+            }else {
+                todos.filter(element => {
+                    return element.isChecked = false;
+                })
+            }
             
             showList();
             saveStorage();
         }
 
         function deleteAllEvent(){
-            todos.splice(0,todos.length);
+            todos = [];
             showList();
             saveStorage();
         }
 
         // delete event,,
-        function deleteBtnEvent(){
-            const $itemList = document.querySelectorAll(".item-list");
-            const $nowList = this.parentNode.parentNode;
-    
-            $itemList.forEach((element, index)=>{
-                if($itemList[index] == $nowList){
-                    $nowList.remove();
-                    todos.splice(index, 1);
-                }
-            });
-            console.log(todos);
+        function deleteButtonEvent(e){
+            todos = todos.filter(element => {
+                return element.id !== e;
+              });
+            showList();
             saveStorage();
         }
 
         // edit event,,
-        function editBtnEvent(){
-            const $itemList = document.querySelectorAll(".item-list");
+        function editButtonEvent(e){
             const $spanText = $list.querySelectorAll(".spanText");
-            const $nowList = this.parentNode.parentNode;
 
-            $itemList.forEach((element, index) => {
-                if (element == $nowList ) {
-                    if (todos[index].isEdit == false) {
-                        todos[index].isEdit = true;
-                    } else {
-                        todos[index].isEdit  = false;
-                        todos.splice(index,1,{
-                            value : $spanText[index].innerHTML,
-                            isChecked : todos[index].isChecked,
-                            id : todos[index].id,
-                            isEdit : false
-                        })
-                    }
-                }
-            });
+            if(todos[e].isEdit === false) todos[e].isEdit = true;
+            else{
+                todos[e].isEdit = false;
+                todos[e].value = $spanText[e].innerHTML;
+            }
             showList();
             saveStorage();
         }
 
         // checkbox event,,
-        function checkBoxEvent(){
-            const $itemList = document.querySelectorAll(".item-list");
-            const $nowList = this.parentNode.parentNode;
+        function checkBoxEvent(e){
             const $checkBox = $list.querySelectorAll(".checkbox");
-
-            $itemList.forEach((element,index) => {
-                if(element === $nowList){
-                    if($checkBox[index].checked){
-                        todos.splice(index,1,{
-                            value : todos[index].value,
-                            isChecked : true,
-                            id : todos[index].id,
-                            isEdit : todos[index].isEdit
-                        })
-                    }
-                    else{
-                        todos.splice(index,1,{
-                            value : todos[index].value,
-                            isChecked : false,
-                            id : todos[index].id,
-                            isEdit : todos[index].isEdit
-                        })
-                        
-                    }
-                }
-            })
+            
+            if($checkBox[e].checked) todos[e].isChecked = true;
+            else todos[e].isChecked = false;
             showList();
             saveStorage();
         }
