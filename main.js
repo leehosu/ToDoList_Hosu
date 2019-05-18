@@ -109,16 +109,11 @@
         }
 
         function checkboxAllEvent(){
-            if($checkBoxAll.checked){
-                todos = todos.filter(element => {
-                    return element.isChecked = true;
-                })
-            }else {
-                todos.filter(element => {
-                    return element.isChecked = false;
-                })
-            }
-            
+
+            todos.forEach( element => {
+                element.isChecked = $checkBoxAll.checked ?  true : false;
+            });
+
             showList();
             saveStorage();
         }
@@ -130,33 +125,30 @@
         }
 
         // delete event,,
-        function deleteButtonEvent(e){
+        function deleteButtonEvent(nowIndex){
             todos = todos.filter(element => {
-                return element.id !== e;
+                return element.id !== nowIndex;
               });
             showList();
             saveStorage();
         }
 
         // edit event,,
-        function editButtonEvent(e){
+        function editButtonEvent(nowIndex){
             const $spanText = $list.querySelectorAll(".spanText");
 
-            if(todos[e].isEdit === false) todos[e].isEdit = true;
-            else{
-                todos[e].isEdit = false;
-                todos[e].value = $spanText[e].innerHTML;
-            }
+            todos[nowIndex].isEdit = todos[nowIndex].isEdit ? false : true;
+            todos[nowIndex].value = $spanText[nowIndex].innerHTML;
+
             showList();
             saveStorage();
         }
 
         // checkbox event,,
-        function checkBoxEvent(e){
+        function checkBoxEvent(nowIndex){
             const $checkBox = $list.querySelectorAll(".checkbox");
             
-            if($checkBox[e].checked) todos[e].isChecked = true;
-            else todos[e].isChecked = false;
+            todos[nowIndex].isChecked = $checkBox[nowIndex].checked ?  true :  false;
             showList();
             saveStorage();
         }
