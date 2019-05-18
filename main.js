@@ -4,6 +4,8 @@
     function todo(){
         const $todoInput = document.querySelector(".inputText");
         const $list = document.querySelector(".list");
+        const $checkBox_all = document.querySelector(".checkboxAll"); 
+        const $delete_all = document.querySelector(".deleteAll"); 
     
         let todos = [];
         let idCount = 0;
@@ -24,12 +26,15 @@
             }
 
             showList();
+            allEventBinder();
         }
 
         // add Event,,
         function addTodos(value) {
             if(!$todoInput.value.trim()) return;
-        
+            if(todos.length == 0){
+                idCount =0;
+            }
             todos.push({
                 value,
                 isChecked: false,
@@ -66,6 +71,11 @@
             $list.innerHTML = todos.map(todo => template(todo)).join('');
             buttonEventBinder();
         }
+        
+        function allEventBinder(){
+            $checkBox_all.addEventListener('click', checkboxAllEvent);
+            $delete_all.addEventListener('click', deleteAllEvent);
+        }
 
         // button evnet binder,,
         function buttonEventBinder() {
@@ -83,7 +93,7 @@
                     addTodos($todoInput.value);
                 }
             });        
-
+            
             $deleteButton.forEach((element, index) => {
                 $deleteButton[index].addEventListener('click', deleteBtnEvent)
             });
@@ -95,6 +105,37 @@
             $checkBox.forEach((element,index) => {
                 $checkBox[index].addEventListener('click', checkBoxEvent);
             })
+        }
+
+        function checkboxAllEvent(){
+            const $checkBox = $list.querySelectorAll(".checkbox");
+
+            $checkBox.forEach((element,index) =>{
+                if($checkBox_all.checked){
+                    todos.splice(index,1,{
+                        value : todos[index].value,
+                        isChecked : true,
+                        id : todos[index].id,
+                        isEdit : todos[index].isEdit
+                    });
+                }else {
+                    todos.splice(index,1,{
+                        value : todos[index].value,
+                        isChecked : false,
+                        id : todos[index].id,
+                        isEdit : todos[index].isEdit
+                    });
+                }
+            });
+            
+            showList();
+            saveStorage();
+        }
+
+        function deleteAllEvent(){
+            todos.splice(0,todos.length);
+            showList();
+            saveStorage();
         }
 
         // delete event,,
