@@ -29,4 +29,3 @@ array에 잘 입력 된 것을 확인 할 수 있다.
 
 ![checkEventArray](./image/checkEventArray.png)
 console에서 확인해보면 정상적으로 object의 속성 값이 변경된것을 확인 할 수 있다.
-
