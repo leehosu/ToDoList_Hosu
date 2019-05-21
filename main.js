@@ -1,7 +1,8 @@
 (function(){
     "use strict"
+    Sentry.init({ dsn: 'https://8c1b6d857a834079a4876243c81c2820@sentry.io/1463553' });
 
-    function todo(){
+    function todoApp(){
         const $todoInput = document.querySelector(".inputText");
         const $list = document.querySelector(".list");
         const $checkBoxAll = document.querySelector(".checkboxAll"); 
@@ -22,10 +23,10 @@
 
             //  when array is empty, idCount reset,,
             if(todos.length == 0){
-                idCount =0;
+                idCount = 0;
             }
 
-            showList();
+            rendering();
             allEventBinder();
         }
 
@@ -33,7 +34,7 @@
         function addTodos(value) {
             if(!$todoInput.value.trim()) return;
             if(todos.length == 0){
-                idCount =0;
+                idCount = 0;
             }
             todos.push({
                 value,
@@ -44,7 +45,7 @@
 
             idCount++;
             $todoInput.value = '';
-            showList();
+            rendering();
             saveStorage();
 
             console.log(todos);
@@ -67,7 +68,7 @@
         }
 
         // show in the display ,,
-        function showList() {
+        function rendering() {
             $list.innerHTML = todos.map(todo => template(todo)).join('');
             buttonEventBinder();
         }
@@ -110,37 +111,36 @@
 
         function checkboxAllEvent(){
 
-            todos.forEach( element => {
-                element.isChecked = $checkBoxAll.checked ?  true : false;
-            });
-
-            showList();
+            todos = todos.map(element => ({ ...element, isChecked : $checkBoxAll.checked}));
+            
+            rendering();
             saveStorage();
         }
 
         function deleteAllEvent(){
             todos = [];
-            showList();
+            rendering();
             saveStorage();
         }
 
         // delete event,,
         function deleteButtonEvent(nowIndex){
-            todos = todos.filter(element => {
-                return element.id !== nowIndex;
-              });
-            showList();
+            todos = todos.filter(element => element.id !== nowIndex );
+            rendering();
             saveStorage();
         }
 
         // edit event,,
         function editButtonEvent(nowIndex){
             const $spanText = $list.querySelectorAll(".spanText");
-
-            todos[nowIndex].isEdit = todos[nowIndex].isEdit ? false : true;
-            todos[nowIndex].value = $spanText[nowIndex].innerHTML;
-
-            showList();
+            
+            todos = todos.map((element,index) => ({
+                ...element,
+                value : $spanText[index].innerHTML,  
+                isEdit : !todos[nowIndex].isEdit
+            }));
+                
+            rendering();
             saveStorage();
         }
 
@@ -148,8 +148,12 @@
         function checkBoxEvent(nowIndex){
             const $checkBox = $list.querySelectorAll(".checkbox");
             
-            todos[nowIndex].isChecked = $checkBox[nowIndex].checked ?  true :  false;
-            showList();
+            todos = todos.map((element,index) => ({
+                ...element, 
+                isChecked : $checkBox[index].checked
+            }));
+
+            rendering();
             saveStorage();
         }
 
@@ -166,7 +170,12 @@
             console.log(todos);
         }
 
-        init();
+        init(); 
     }
-    todo();
+    try {
+        todoApp();
+        
+    } catch (error) {
+        Sentry.captureException(new Error(error));
+    }
 })();
