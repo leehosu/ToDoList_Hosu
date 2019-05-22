@@ -43,13 +43,6 @@ list가 입력된다.
 function saveStorage(){
             localStorage.setItem("storageList",JSON.stringify(todos));
             localStorage.setItem("idCount",JSON.stringify(idCount));
-        }
-
-        //storage load function,,
-        function loadStorage(){
-            todos = JSON.parse(localStorage.getItem("storageList"));
-            idCount = Number(JSON.parse(localStorage.getItem("idCount")));
-            console.log("storage loard,,")
-            console.log(todos);
-        }
+}
 ~~~
+=======
