@@ -167,6 +167,7 @@
         function loadStorage(){
             todos = JSON.parse(localStorage.getItem("storageList"));
             idCount = Number(JSON.parse(localStorage.getItem("idCount")));
+            console.log("storage loard,,")
             console.log(todos);
         }
 
