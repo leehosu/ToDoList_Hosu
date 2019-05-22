@@ -103,15 +103,16 @@
                 $editButton[index].addEventListener('click', () => {
                     editButtonEvent(todos[index].id);
                 });
-                $checkBox[index].addEventListener('click', () => {
-                    checkBoxEvent(todos[index].id);
-                });
+                $checkBox[index].addEventListener('click', checkBoxEvent);
             });   
         }
 
         function checkboxAllEvent(){
 
-            todos = todos.map(element => ({ ...element, isChecked : $checkBoxAll.checked}));
+            todos = todos.map(element => ({ 
+                ...element, 
+                isChecked : $checkBoxAll.checked
+            }));
             
             rendering();
             saveStorage();
@@ -131,21 +132,19 @@
         }
 
         // edit event,,
-        function editButtonEvent(nowIndex){
+        function editButtonEvent(nowIndex){ 
             const $spanText = $list.querySelectorAll(".spanText");
-            
-            todos = todos.map((element,index) => ({
-                ...element,
-                value : $spanText[index].innerHTML,  
-                isEdit : !todos[nowIndex].isEdit
-            }));
-                
+
+            todos[nowIndex].isEdit = !todos[nowIndex].isEdit;
+            todos[nowIndex].value = $spanText[nowIndex].innerHTML;
+
             rendering();
             saveStorage();
+            console.log(todos);
         }
 
         // checkbox event,,
-        function checkBoxEvent(nowIndex){
+        function checkBoxEvent(){
             const $checkBox = $list.querySelectorAll(".checkbox");
             
             todos = todos.map((element,index) => ({
@@ -155,6 +154,7 @@
 
             rendering();
             saveStorage();
+            console.log(todos);
         }
 
         // storage save function,,
