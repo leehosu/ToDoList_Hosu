@@ -36,6 +36,7 @@
             if(todos.length == 0){
                 idCount = 0;
             }
+
             todos.push({
                 value,
                 isChecked: false,
@@ -95,16 +96,16 @@
                     addTodos($todoInput.value);
                 }
             });        
-
+            $editButton.forEach((element, index) => {
+                $editButton[index].addEventListener('click', editButtonEvent);
+            });
+            
             $itemList.forEach((element,index) => {
                 $deleteButton[index].addEventListener('click', () => {
                     deleteButtonEvent(todos[index].id);
                 });
-                $editButton[index].addEventListener('click', () => {
-                    editButtonEvent(todos[index].id);
-                });
                 $checkBox[index].addEventListener('click', checkBoxEvent);
-            });   
+            }); 
         }
 
         function checkboxAllEvent(){
@@ -132,15 +133,28 @@
         }
 
         // edit event,,
-        function editButtonEvent(nowIndex){ 
+        function editButtonEvent(){ 
+            const $itemList = document.querySelectorAll(".item-list");
             const $spanText = $list.querySelectorAll(".spanText");
+            const $nowList = this.parentNode.parentNode;
 
-            todos[nowIndex].isEdit = !todos[nowIndex].isEdit;
-            todos[nowIndex].value = $spanText[nowIndex].innerHTML;
-
+            $itemList.forEach((element, index) => {
+                if (element == $nowList ) {
+                    if (todos[index].isEdit == false) {
+                        todos[index].isEdit = true;
+                    } else {
+                        todos[index].isEdit  = false;
+                        todos.splice(index,1,{
+                            value : $spanText[index].innerHTML,
+                            isChecked : todos[index].isChecked,
+                            id : todos[index].id,
+                            isEdit : false
+                        })
+                    }
+                }
+            });
             rendering();
             saveStorage();
-            console.log(todos);
         }
 
         // checkbox event,,
