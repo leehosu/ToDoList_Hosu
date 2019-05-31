@@ -1,11 +1,10 @@
 ﻿
 ## ✨ Object와 rendering을 활용한 ToDoList 
 
-### 1. main Index display
-![mainIndex](./image/mainIndex.png)
-
+### OverView
+![overview](./image/overview.gif)
 ---
-### 2. add Event
+### add Event
 - input tag에 text를 입력한 후 Add 버튼을 누르면 rendering을 통해
 list가 입력된다.
 ![addEvent](./image/addText.png)
@@ -15,7 +14,7 @@ list가 입력된다.
 ![addArray](./image/addArray.png)
 
 ---
-### 3. eidt Event
+### eidt Event
 - 출력된 list에 text를 수정하고 싶다면 edit button을 클릭해 이벤트를 활성화시킨다.
 ![editEvent](./image/editEvent.png)
 
@@ -28,14 +27,14 @@ list가 입력된다.
 - console로 배열을 확인해보면 바뀐 text로 value가 수정되어있고 isEdit값도 false로 변경되어있음을 확인 할 수 있습니다.
 ![editFinishArray](./image/editFinishArray.png)
 ---
-### 4. check Event
+### check Event
 ![checkEvent](./image/checkEvent.png)
 - 출력된 list에 해결 여부를 확인하려고 checkBox를 활성화 시키기위해 객체에 isChecked라는 속성을 추가해 checked일때 true를 표현했습니다.
 
 ![checkEventArray](./image/checkEventArray.png)
 - console에서 확인해보면 정상적으로 object의 속성 값이 변경된것을 확인 할 수 있다.
 ---
-### 5. LocalStorage Function
+### LocalStorage Function
 - 더욱 완벽한 todolist를 구현하기 위해 localstorage를 활용하여 list를 저장시키고 todoApp을 실행할때에 list를 불러올 수 있게 구현하였습니다.
 1) save storage function
 ~~~
