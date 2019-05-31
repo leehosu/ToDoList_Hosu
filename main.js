@@ -124,13 +124,13 @@
 
         function deleteAllEvent(){
             todos = [];
+            localStorage.removeItem("storageList");
+            localStorage.clear;
             rendering();
-            saveStorage();
         }
 
         // delete event,,
         function deleteButtonEvent(nowIndex){
-            console.log(nowIndex);
             todos = todos.filter(element => element.id !== nowIndex );
             rendering();
             saveStorage();
