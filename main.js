@@ -57,12 +57,12 @@
             return `
                <li class="item-list" data-key="${todos.id}">
                   <label class="app-list">
-                      <input type="checkbox" class="checkbox" ${todos.isChecked ? "checked" : " "}>
+                      <input type="checkbox" class="checkbox" ${todos.isChecked ? "checked" : " "} data-action="onCheck">
                   </label>
                   <span class="spanText" contentEditable = '${todos.isEdit ? true : false}'>${todos.value}</span>
                   <div class="list-btn">
-                      <button class="delete">Delete</button>
-                      <button class="edit">Edit</button>
+                      <button class="delete" data-action="onDelete">Delete</button>
+                      <button class="edit" data-action="onEdit">Edit</button>
                   </div>
               </li> 
             `;
@@ -70,7 +70,7 @@
 
         // show in the display ,,
         function rendering() {
-            $list.innerHTML = todos.map(todos => template(todos)).join('');
+            $list.innerHTML = todos.map(element => template(element)).join('');
             buttonEventBinder();
         }
         
@@ -83,9 +83,6 @@
         function buttonEventBinder() {
             const $itemList = $list.querySelectorAll(".item-list");
             const $addButton = document.querySelector(".addBtn");
-            const $deleteButton = $list.querySelectorAll(".delete");
-            const $editButton = $list.querySelectorAll(".edit");
-            const $checkBox = $list.querySelectorAll(".checkbox");
 
             $addButton.addEventListener('click', () => {
                 addTodos($todoInput.value);
@@ -95,24 +92,21 @@
                 if(e.keyCode === ENTER) {
                     addTodos($todoInput.value);
                 }
-            });
+            });  
 
             $itemList.forEach((element,index) => {
-                $deleteButton[index].addEventListener('click', () => {
-                    deleteButtonEvent(todos[index].id);
-                });
-                
-                $editButton[index].addEventListener('click', () => {
-                    editButtonEvent(todos[index].id);
-                });
-
-                $checkBox[index].addEventListener('click', checkBoxEvent);
-
-            });   
-        }
+                element.addEventListener('click', (e) => {
+                    if(e.target.dataset.action == 'onEdit'){
+                        editButtonEvent(todos[index].id);
+                    }
+                    else if(e.target.dataset.action == 'onDelete'){
+                        deleteButtonEvent(todos[index].id);
+                    }
+                    else checkBoxEvent();
+                })
+            })}
 
         function checkboxAllEvent(){
-
             todos = todos.map(element => ({ 
                 ...element, 
                 isChecked : $checkBoxAll.checked
@@ -147,7 +141,7 @@
                     todos[index].value = $spanText[index].innerHTML;
                 }
             })
-           
+
             console.log(todos);
             rendering();
             saveStorage();
